@@ -1,0 +1,64 @@
+<!DOCTYPE html5>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>금빛_조직도</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="../ex1.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+                crossorigin="anonymous">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+
+<body>
+        <div th:insert="~{fragments/header::header}"></div>
+			<section id="page-content">
+                <div class="container">
+                        <div class="service-banner">
+                                <img src="/service_banner/배너1.PNG">
+                        </div>
+                        <div class="siteMap-tap">
+                                <div class="siteMap-title">센터소개</div>&nbsp;
+                                <i class="fas fa-caret-right"></i>
+                                <div class="siteMap-menu">
+                                        <a href="/intro/about">인사말</a>
+                                        <a href="/intro/view">시설소개</a>
+                                        <a href="/intro/org" class="siteMap-menu-active">조직도</a>
+                                        <a href="/intro/map">오시는 길</a>
+                                </div>
+                                <div class="siteMap">
+                                        <a href="#"><i class="fas fa-home"></i></a> <i class="fas fa-angle-right"></i>
+                                        <a href="/intro/view">센터소개</a> <i class="fas fa-angle-right"></i>
+                                        <a href="/intro/org">조직도</a>
+                                </div>
+                        </div>  
+                        
+                </div>
+                <div class="container">
+                        <div id="section1" class="section">
+                                <h2>센터 조직도</h2>
+                                 <div class="sub-section">
+                                        <div class="section-side-layout">
+                                                <div class="sub-title"><i class="fas fa-check"></i> 센터장 인사말</div>
+                                        </div>
+                                        <div class="section-content-layout">
+                                                <div class="content">
+                                                        <div style="text-align:center">
+                                                                <img src="/센터소개/조직도.PNG" alt="조직도 그림" style="max-width: 800px" />
+                                                                <div class="explain">
+                                                                        <2018-00-00 직원 조직도>
+                                                                </div><br><br>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </section>
+        <div th:insert="~{fragments/footer::footer}"></div>
+        <script type="text/javascript" src="../ex1.js"></script>
+</body>
+
+</html>

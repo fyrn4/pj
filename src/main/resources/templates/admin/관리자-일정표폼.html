@@ -1,0 +1,137 @@
+<!DOCTYPE html5>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>관리자-글쓰기 폼</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+                crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="../ex1.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+        <script src="/summernote-ko-KR.js"></script>
+        <script type="text/javascript">
+	        $(window).on("beforeunload", function(event){
+	        	//$('input[name=title]').val() != 
+	        	if(true) {
+	        		return true;
+	        	}
+	        });
+	        $(window).unload(event, function() {
+	        	console.log("img href:", $('img').prop('href'))
+	        })
+	        
+	        
+        </script>
+        	
+</head>
+<body>
+	<div class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<p>One fine body&hellip;</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	<br>
+        <div class="container" style="background:#eaeaea;">
+        <form id="formSubmit"action="/admin/form" method="post">
+        	제목<br>
+        	<input type="text" id="bno" name="bno" th:value="${bno}"/>
+        	<input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        	<input type="text" name="name" th:attr="value=${name}" readonly/>
+        	<input name="title" style='width:100%' placeholder="제목을 꼭 입력해주세요."/>
+        	<br>
+                           내용
+                <div id="summernote"></div>
+                <textarea id="content" name="content" style="display:none;"></textarea>
+                <br>
+                <div style="text-align:center">
+                <button type="button" onclick="submitFn()"> 작성 </button>
+                <button type="button" onclick="self.close()"> 취소 </button>
+                </div>
+                <div id="render"></div>
+        </form>
+        </div>
+        
+        <script type="text/javascript">
+        		var submitFn = function(){
+        			var data = $('div[contenteditable]').html();
+        			console.log('data:', data);
+        			$('#content').val(data);
+        			/* $('form').submit(); */
+        			$.ajax({
+        				url: '/admin/schedule',
+        				type: 'post',
+        				data: $('form').serialize(),
+        				success: function (res) {
+        					alert("게시물이 등록되었습니다.");
+        					window.close();
+        				}
+        			})
+        		}
+                $('#summernote').summernote({
+                        placeholder: '일정표에 대한 게시물을 작성해주세요.',
+                        tabsize: 2,
+                        height: 500,
+                        lang: 'ko-KR',
+ 						callbacks : {
+							onImageUpload : function(files){
+								console.log("callback-inImageUpload:"+files);
+								console.log("callback-filesLength:"+files.length);
+								for ( var i=0; i<files.length; i++){
+									console.log("callback-files[i]:"+files[i]);
+									sendFile(files[i]);
+								}
+							}
+						}
+                });	
+                 
+                function sendFile(file){
+                	var data = $('#csrf').serialize();
+        			console.log('data:', data);
+                	var form_data = new FormData();
+                    form_data.append('file', file);
+                    $.ajax({
+                      beforeSend: function(request) {
+                	  request.setRequestHeader('X-CSRF-TOKEN', $('#csrf').val());
+                	  },
+                      data: form_data,
+                      type: "POST",
+                      url: '/admin/image/schedule?bno='+$('#bno').val(),
+                      cache: false,
+                      contentType: false,
+                      enctype: 'multipart/form-data',
+                      processData: false,
+                      success: function(url) {
+                        console.log(url);
+                        $(".note-editable").append('<img src="'+url+'&path=schedule">');
+                      }
+                    });
+                } 
+        </script>
+</body>
+
+</html>

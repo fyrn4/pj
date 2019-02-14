@@ -1,0 +1,167 @@
+<html lang="ko" 
+		xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="utf-8">
+<title>CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="ex1.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	crossorigin="anonymous">
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+	<th:block th:insert="~{fragments/header::header}"></th:block>
+	<div id="page-content">
+		<section id="layer-carousel">
+			<div class="container">
+				<div id="slide">
+					<input type="radio" name="pos" id="pos1" checked /> 
+					<input type="radio" name="pos" id="pos2" /> 
+					<input type="radio"	name="pos" id="pos3" /> 
+					<input type="radio" name="pos" id="pos4" />
+					<ul>
+						<li><img src="main/carousel/carousel-1000-360.gif" /></li>
+						<li>slide2</li>
+						<li>slide3</li>
+						<li>slide4</li>
+					</ul>
+					<p class="pos">
+						<label for="pos1"></label> <label for="pos2"></label> <label
+							for="pos3"></label> <label for="pos4"></label>
+					</p>
+				</div>
+			</div>
+		</section>
+		<section id="often-menu">
+			<div class="container">
+				<div class="row">
+					<div class="often-menu-banner col-4">
+						<img src="/main/banner.gif">
+					</div>
+					<div class="often-menu-col col-8">
+						<div class="often-menu-gird col-2 col-mb-4">
+							<a href="/intro/about" class="often-menu-btn"><i
+								class="fas fa-heartbeat"></i>
+								<div class="often-menu-name">센터소개</div></a>
+						</div>
+						<div class="often-menu-gird col-2 col-mb-4">
+							<a href="/info/enter_info" class="often-menu-btn"><i
+								class="fas fa-hand-holding-heart"></i>
+								<div class="often-menu-name">입소안내</div></a>
+						</div>
+						<div class="often-menu-gird col-2 col-mb-4">
+							<a href="/pgm/menu" class="often-menu-btn"><i class="fas fa-utensils"></i>
+								<div class="often-menu-name">식단표</div></a>
+						</div>
+						<div class="often-menu-gird col-2 col-mb-4">
+							<a href="/comm/photo" class="often-menu-btn"><i class="fas fa-image"></i>
+								<div class="often-menu-name">포토갤러리</div></a>
+						</div>
+						<div class="often-menu-gird col-2 col-mb-4">
+							<a href="/comm/notice" class="often-menu-btn"><i class="fas fa-flag"></i>
+								<div class="often-menu-name">공지사항</div></a>
+						</div>
+						<div class="often-menu-gird col-2 col-mb-4">
+							<a href="/intro/map" class="often-menu-btn"><i
+								class="fas fa-map-marked-alt"></i>
+								<div class="often-menu-name">오시는 길</div></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="pView">
+			<div class="container">
+				<div class="pView-side">
+					<div class="row">
+						<div class="pView-grid col-4 col-mb-12">
+							<h4 class="pView-title">
+								<span class="pView-title-head">새 소식140</span><small><a
+									href="#" class="more">(more)</a></small>
+							</h4>
+							<div class="row">
+								<div class="pView-news-grid">
+									<ul class="pView-news-thumbnail">
+										<li><a href="#" class="pView-news-href"><img
+												src="main/news.jpg" /></a></li>
+									</ul>
+									<ul class="pView-news-word">
+										<li>
+											<a href="#" class="pView-news-href">
+												<div th:each="news : ${news}" class="pView-news-sub">
+													[[${news.title}]]
+												</div>
+											</a>
+										</li>
+										<li>
+											<div th:each="news:${news}"class="pView-news-cont">
+												[[${news.content}]]
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="pView-grid col-4 col-mb-12">
+							<h4 class="pView-title">
+								<span class="pView-title-head">주간 식단표</span><small><a
+									href="#" class="more">(more)</a></small>
+							</h4>
+							<div class="pView-table">
+								<table>
+									<tr th:each="f : ${food}">
+										<td><a th:text="${f.title}" href="#" class="pView-a"></a></td>
+										<td><span th:text="${f.date}" class="date"></span></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="pView-grid col-4 col-mb-12">
+							<h4 class="pView-title">
+								<span class="pView-title-head">공지사항</span><small><a
+									href="#" class="more">(more)</a></small>
+							</h4>
+							<div class="pView-table">
+								<table>
+									<tr th:each="n : ${notice}">
+										<td><a th:text="${n.title}" href="#" class="pView-a"></a></td>
+										<td><span th:text="${n.date}" class="date"></span></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- The Modal -->
+		<!-- <div id="myModal" class="modal">
+                        
+                                
+                                <div class="modal-content">
+                                <span class="close">&times;</span>                                                               
+                                        <p>로그인</p>
+                                </div>
+                        </div> -->
+		<section id="photo-slide">
+			<div class="container">
+				<h4 class="pView-title">
+					<span class="pView-title-head">포토 갤러리</span><small><a
+						href="#" class="more">(more)</a></small>
+				</h4>
+				<img src="main/인사말.jpg" width="270" height="180"> 
+				<img src="main/인사말.jpg" width="270" height="180"> 
+				<img src="main/인사말.jpg" width="270" height="180"> 
+				<img src="main/인사말.jpg" width="270"	height="180">
+			</div>
+		</section>
+		<div th:insert="~{fragments/footer::footer}"></div>
+		<script type="text/javascript" src="ex1.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CSS</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="login.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+                crossorigin="anonymous">
+</head>
+<body>
+        <div class="form-box">
+            <div class="head"><a href="/"><img src="로고/메인로고.png" width="70%"/></a></div>
+            <hr>
+            <form id="login-form" method="post">
+                <div class="form-group">
+                    <label class="label-control">
+                        <span class="label-text">아이디</span>
+                    </label>
+                    <input type="text" name="username" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label class="label-control">
+                        <span class="label-text">비밀번호</span>
+                    </label>
+                    <input type="password" name="password" class="form-control" />
+                </div>
+                <input type="submit" value="로그인" class="btn" />
+                <input type="button" value="회원가입" class="btn" onclick="location.href='/signup'"/>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <p class="text-p">아이디/비밀번호를 잊으셨나요? <a href="#">ID/PW 찾기</a> </p>
+            </form>
+        </div>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html5>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>금빛-입소신청</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/ex1.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+                crossorigin="anonymous">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+
+<body>
+        <div th:insert="~{fragments/header::header}"></div>
+        <section id="page-content">
+                <div class="container">
+                        <div class="service-banner">
+                                <img src="/service_banner/배너2.PNG">
+                        </div>
+                        <div class="siteMap-tap">
+                                <div class="siteMap-title">입소정보</div>&nbsp;
+                                <i class="fas fa-caret-right"></i>
+                                <div class="siteMap-menu">
+                                        <a href="/info/enter_info">입소안내</a>
+                                        <a href="/info/enter_cost">비용안내</a>
+                                        <a href="/info/enter_req" class="siteMap-menu-active">입소신청</a>
+                                        <a href="/info/enter_list">대기자 명단</a>
+                                </div>
+                                <div class="siteMap">
+                                        <a href="/"><i class="fas fa-home"></i></a> <i class="fas fa-angle-right"></i>
+                                        <a href="/info/enter_info">입소정보</a> <i class="fas fa-angle-right"></i>
+                                        <a href="/info/enter_req">입소신청</a>
+                                </div>
+                        </div>  
+                        
+                </div>
+                <div class="container">
+                        <div id="section1" class="section">
+                                <h2>입소 명단</h2>
+                                <div class="sub-section">
+                                        <div class="section-side-layout">
+                                                <div class="sub-title"><i class="fas fa-check"></i> 입소 신청</div>
+                                        </div>
+                                        <div class="section-content-layout">
+                                                <div class="content">
+                                                <table class="table">
+                                                        <thead>
+                                                                <tr height="40px">
+                                                                        <th>정원</th>
+                                                                        <th>입소인원</th>
+                                                                        <th>대기자</th>
+                                                                        <th>잔여정원</th>
+                                                                </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                                <tr height="30px">
+                                                                        <td>50</td>
+                                                                        <td>32</td>
+                                                                        <td>0</td>
+                                                                        <td>18</td>
+                                                                </tr>
+                                                        </tbody>
+                                                </table>
+                                                </div> 
+                                        </div>
+                                </div>
+                                <div class="sub-section">
+                                        <div class="section-side-layout">
+                                                <div class="sub-title"><i class="fas fa-check"></i> 입소 명단</div>
+                                        </div>
+                                        <div class="section-content-layout">
+                                          <div class="content">
+                                                <table class="table">
+                                                        <thead>
+                                                                <tr>
+                                                                        <th>입소번호</th>
+                                                                        <th>입소자 이름</th>
+                                                                        <th>성별</th>
+                                                                        <th>입소 날짜</th>
+                                                                </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                                <tr>
+                                                                        <td>A01</td>
+                                                                        <td>가*다</td>
+                                                                        <td>남</td>
+                                                                        <td>2018.01.10</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>A02</td>
+                                                                        <td>라*바</td>
+                                                                        <td>여</td>
+                                                                        <td>2018.02.12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>A02</td>
+                                                                        <td>라*바</td>
+                                                                        <td>여</td>
+                                                                        <td>2018.02.12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>A02</td>
+                                                                        <td>라*바</td>
+                                                                        <td>여</td>
+                                                                        <td>2018.02.12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>A02</td>
+                                                                        <td>라*바</td>
+                                                                        <td>여</td>
+                                                                        <td>2018.02.12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>A02</td>
+                                                                        <td>라*바</td>
+                                                                        <td>여</td>
+                                                                        <td>2018.02.12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>A02</td>
+                                                                        <td>라*바</td>
+                                                                        <td>여</td>
+                                                                        <td>2018.02.12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>A02</td>
+                                                                        <td>라*바</td>
+                                                                        <td>여</td>
+                                                                        <td>2018.02.12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>A02</td>
+                                                                        <td>라*바</td>
+                                                                        <td>여</td>
+                                                                        <td>2018.02.12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>A02</td>
+                                                                        <td>라*바</td>
+                                                                        <td>여</td>
+                                                                        <td>2018.02.12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td>A02</td>
+                                                                        <td>라*바</td>
+                                                                        <td>여</td>
+                                                                        <td>2018.02.12</td>
+                                                                </tr>
+                                                        </tbody>
+                                                </table>
+                                        </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </section>
+        <div th:insert="~{fragments/footer::footer}"></div>
+        <script type="text/javascript" src="/ex1.js"></script>
+</body>
+
+</html>

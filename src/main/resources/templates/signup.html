@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CSS</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="login.css" />
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+                crossorigin="anonymous">
+</head>
+<body>
+        <div class="form-box">
+            <div class="head"><a href="/"><img src="로고/메인로고.png" width="70%"/></a></div>
+            <hr>
+            <form action="signup" method="post" id="login-form">
+                <div class="form-group">
+                    <label class="label-control">
+                        <span class="label-text">아이디</span>
+                    </label>
+                    <input type="text" id="id" name="id" class="form-control" maxLength="16" 
+                    pattern="[A-Za-z0-9]{4,16}" title="아이디는 4~16자 영문또는 영문+숫자를 사용해주세요."/>
+                </div>
+                <div class="form-group">
+                    <label class="label-control">
+                        <span class="label-text">비밀번호</span>
+                    </label>
+                    <input type="password" id = "pwd1" name="pwd1" class="form-control" maxLength="24"/>
+                </div>
+                <div class="form-group">
+                    <label class="label-control">
+                        <span class="label-text">비밀번호 확인</span>
+                    </label>
+                    <input type="password" id = "pwd2" name="pwd2" class="form-control" maxLength="24"/>
+                </div>
+                <div class="form-group">
+                    <label class="label-control">
+                        <span class="label-text">이름</span>
+                    </label>
+                    <input type="text" id="name" name="name" class="form-control" maxLength="6" 
+                    pattern="[가-힣]{2,6}" title="한글이름 2~6자 사이, 공백x 특수문자x  ex)홍길동"/>
+                </div>
+                <div class="form-group">
+                    <label class="label-control">
+                        <span class="label-text">생년월일</span>
+                    </label>
+                    <input type="text" id="birth" name="birth" class="form-control" maxLength="6"
+                    pattern="[0-9]{6}" title="주민번호 앞 6자리를 입력해주세요."/>
+                </div>
+                <div class="form-group">
+                    <label class="label-control">
+                        <span class="label-text">전화번호</span>
+                    </label>
+                    <input type="text" id="phone" name="phone" class="form-control" maxLength="11"
+                    pattern="[0-9]{11}" title="하이픈(-)없이 숫자만 입력해주세요. ex) 01012345678"/>
+                </div>
+                <div class="form-group">
+                    <label class="label-control">
+                        <span class="label-text">이메일</span>
+                    </label>
+                    <input type="email" id="email" name="email" class="form-control" />
+                </div>
+                	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="submit" value="회원가입" class="btn"/>
+                    <input type="button" onclick="location.href='/'" value="취소" class="btn" />
+            </form>
+        </div>
+        <script type="text/javascript">
+        $("input").keyup(function(e){
+        	
+        	
+        	
+        	if(e.target.name ==="id"){
+        		console.log("아이디:"+e.target.checkValidity());
+            	checkValid(e.target);
+            	}
+        	
+        	
+        	if((e.target.name ==="pwd1") || (e.target.name ==="pwd2")){
+        		console.log("비밀번호:"+e.target.checkValidity());
+        	var pwd1 = $("#pwd1").val();
+        	var pwd2 = $("#pwd2").val();
+        	
+        	if(pwd2.length > 0){
+        	if(pwd1 != '' || pwd2 != ''){
+        	if ( $("#pwd1").val() !== $("#pwd2").val() ){	
+        		$("#pwd2").siblings().prevAll().prevObject.addClass('err');
+        		$("#pwd2").siblings().prev().prevObject.children().addClass('err');
+        		e.target.setCustomValidity('비밀번호가 일치하지 않습니다.');
+        		console.log(e.target.checkValidity());
+        	}else{
+        		$("#pwd2").siblings().prevAll().prevObject.removeClass('err');
+        		$("#pwd2").siblings().prev().prevObject.children().removeClass('err');
+        		e.target.setCustomValidity('');
+        		console.log(e.target.checkValidity(),':',pwd1,pwd2);
+        		console.log(e.target);
+        	}
+        	}
+        	}
+        	}
+        	
+        	if(e.target.name ==="name"){
+        		console.log("이름:"+e.target.checkValidity());
+ 	 			checkValid(e.target);          	
+           	}
+        	
+        	if(e.target.name ==="birth"){
+        		console.log("주민앞자리:"+e.target.checkValidity());
+        	var birth = $("#birth").val();
+        	if(birth >= 6 ){
+        		birth = $("#birth").val().slice(0,6);
+        		$("#birth").val(birth);
+        		console.log(e.target);
+        	}
+        	checkValid(e.target);
+        	}
+        	
+        	if(e.target.name ==="phone"){
+        		console.log("번호앞자리:"+e.target.checkValidity());
+        	var phone = $("#phone").val();
+        	if(phone >= 11 ){
+        		phone = $("#phone").val().slice(0,11);
+        		$("#phone").val(phone);
+        		console.log(e.target);
+        		
+        	}
+        	checkValid(e.target);
+        	}
+        	
+        	if(e.target.name==="email"){
+        		console.log("이메일:"+e.target.checkValidity());
+        		checkValid(e.target)
+        	}
+        	
+        });
+        
+        var checkValid = function (target) {
+        	if(!target.checkValidity()){
+        		$(target).siblings().prevAll().prevObject.addClass('err');
+        		$(target).siblings().prev().prevObject.children().addClass('err');
+        	}else{
+        		$(target).siblings().prevAll().prevObject.removeClass('err');
+        		$(target).siblings().prev().prevObject.children().removeClass('err');
+        	}
+        }
+        function check(){
+        	
+        }
+        </script>
+        <script type="text/javascript" src="login.js"></script>
+</body>
+
+</html>
