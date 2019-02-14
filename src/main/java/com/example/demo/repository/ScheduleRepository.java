@@ -13,8 +13,8 @@ public interface ScheduleRepository extends CrudRepository<Schedule, Integer>{
 	Schedule findScheduleByName(String name);
 	Page<Schedule> findByNoGreaterThan(int no, Pageable paging);
 	
-	default Predicate makePredicate(String type, String keyword) {
-		BooleanBuilder builder = new BooleanBuilder()
-		return ;
-	}
+//	default Predicate makePredicate(String type, String keyword) {
+//		BooleanBuilder builder = new BooleanBuilder()
+//		return ;
+//	}
 }
