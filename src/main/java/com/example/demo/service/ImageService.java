@@ -30,7 +30,7 @@ import com.example.demo.repository.ScheduleFileRepository;
 @Service
 public class ImageService {
     
-	static String path = "C:/woo/주야업로드";
+	static String path = "/home/juya";
 
     @Autowired
     ScheduleFileRepository scheRepo;
