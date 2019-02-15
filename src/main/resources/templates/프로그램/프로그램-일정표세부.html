@@ -5,118 +5,18 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>금빛-일정표 안내</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="../ex1.css" />
+        <link rel="stylesheet" type="text/css" href="/ex1.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
                 crossorigin="anonymous">
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 
 <body>
-        <div id="header">
-                <nav class="nav">
-                        <div class="container">
-                                <div class="nav-index"><a href="ex1.html">금빛주야보호센터2</a></div>
-                                <div class="nav-container">
-                                        <!-- <span class="nav-btn"><a id="nav-btn" href="#" onclick="navbtn(event);">button<i class="fas fa-bars"></i></a></span> -->
-                                        <span class="nav-btn"><a id="nav-btn" href="#" onclick="mb_btn(event);"><i
-                                                                class="fas fa-bars"></i></a></span>
-                                        <ul class="item-container">
-                                                <li class="nav-item"><a href="#" onclick="move('1')">센터소개</a></li>
-                                                <li class="nav-item"><a href="#" onclick="move('2')">입소정보</a></li>
-                                                <li class="nav-item"><a href="#" onclick="move('3')">프로그램</a></li>
-                                                <li class="nav-item"><a href="#" onclick="move('4')">커뮤니티</a></li>
-                                                <li class="nav-item"><a href="login.html">sign <i class="fas fa-sign-in-alt"></i></a></li>
-                                                <div class="nav-dropWrap">
-                                                        <ul class="nav-dropDown-menu">
-                                                                <li id="sub01">
-                                                                        <ul>
-                                                                                <li><a href="#">인사말</a></li>
-                                                                                <li><a href="#">센터소개</a></li>
-                                                                                <li><a href="#">조직도</a></li>
-                                                                                <li><a href="#">오시는 길</a></li>
-                                                                        </ul>
-                                                                </li>
-                                                                <li id="sub02">
-                                                                        <ul>
-                                                                                <li><a href="#">입소안내</a></li>
-                                                                                <li><a href="#">비용안내</a></li>
-                                                                                <li><a href="#">입소신청</a></li>
-                                                                                <li><a href="#">대기자명단</a></li>
-                                                                        </ul>
-                                                                </li>
-                                                                <li id="sub03">
-                                                                        <ul>
-                                                                                <li><a href="#">프로그램안내</a></li>
-                                                                                <li><a href="#">일정표</a></li>
-                                                                                <li><a href="#">식단표</a></li>
-                                                                        </ul>
-                                                                </li>
-                                                                <li id="sub04">
-                                                                        <ul>
-                                                                                <li><a href="#">공지사항</a></li>
-                                                                                <li><a href="#">월간소식지</a></li>
-                                                                                <li><a href="#">포토갤러리</a></li>
-                                                                                <li><a href="#">Q & A</a></li>
-                                                                        </ul>
-                                                                </li>
-                                                        </ul>
-                                                </div>
-                                        </ul>
-                                </div>
-                        </div>
-                        <div class="mb-menu">
-                                <div><img width="100%" height="100" alt="로고"></div>
-                                <div class="mb-login">
-                                        <input type="text" maxlength="12" placeholder="아이디" />
-                                        <input type="password" placeholder="비밀번호" />
-                                        <!-- <div class="mb-login-rem"><input type="radio">기억하기</div> -->
-                                        <div class="mb-login-forget"><a href="#">ID/PW 찾기</a></div>
-                                        <button style="background:#3ca3da">로그인</button>
-                                        <button onclick="window.location.href='#'">회원가입</button>
-                                </div>
-                                <div class="mb-menu-dropDown">
-                                        <ul>
-                                                <li><a href="#">menu1</a>
-                                                        <ul>
-                                                                <li><a href="#">menu1-1</a></li>
-                                                                <li><a href="#">menu1-2</a></li>
-                                                                <li><a href="#">menu1-3</a></li>
-                                                                <li><a href="#">menu1-4</a></li>
-                                                        </ul>
-                                                </li>
-                                                <li><a href="#">menu2</a>
-                                                        <ul>
-                                                                <li><a href="#">menu2-1</a></li>
-                                                                <li><a href="#">menu2-2</a></li>
-                                                                <li><a href="#">menu2-3</a></li>
-                                                                <li><a href="#">menu2-4</a></li>
-                                                        </ul>
-                                                </li>
-                                                <li><a href="#">menu3</a>
-                                                        <ul>
-                                                                <li><a href="#">menu3-1</a></li>
-                                                                <li><a href="#">menu3-2</a></li>
-                                                                <li><a href="#">menu3-3</a></li>
-                                                                <li><a href="#">menu3-4</a></li>
-                                                        </ul>
-                                                </li>
-                                                <li><a href="#">menu4</a>
-                                                        <ul>
-                                                                <li><a href="#">menu4-1</a></li>
-                                                                <li><a href="#">menu4-2</a></li>
-                                                                <li><a href="#">menu4-3</a></li>
-                                                                <li><a href="#">menu4-4</a></li>
-                                                        </ul>
-                                                </li>
-                                        </ul>
-                                </div>
-                        </div>
-                </nav>
-        </div>
+	<div th:insert="~{fragments/header::header}"></div>
         <section id="page-content">
                 <div class="container">
                         <div class="service-banner">
-                                <img src="../banner/배너3.PNG">
+                                <img src="/service_banner/배너3.PNG">
                         </div>
                         <div class="siteMap-tap">
                                 <div class="siteMap-title">프로그램</div>&nbsp;
@@ -154,15 +54,7 @@
                                                         </div>
                                                         <div class="board-view-body">
                                                                 <div class="board-content">
-                                                                        글내용입니다.
-                                                                        <P>
-                                                                                ddddddddddddddddddddddddddddd
-                                                                                zz
-                                                                        </P>
-                                                                        djhfkalsdhfkadf
-                                                                        alskdjfl;adfjadfadlfj;aldsfjk
-                                                                        alsdkfjal;sdfj
-                                                                        <img src="12월소식지.jpg">
+																	[[${content}]]
                                                                 </div>
                                                         </div>
                                                         <hr>
@@ -197,7 +89,7 @@
                                                         </div>
                                                         <hr>
                                                         <!-- 테이블 -->
-                                                        <table class="board-table">
+                                                       <table class="board-table">
                                                                 <thead>
                                                                         <tr>
                                                                                 <th width="10%">번호</th>
@@ -208,71 +100,73 @@
                                                                         </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                        <tr>
-                                                                                <td width="10%">3</td>
-                                                                                <td width="40%" class="tas"><a href="#">월간 일정표(18년10월)</a></td>
-                                                                                <td width="20%">관리자</td>
-                                                                                <td width="20%">2018.01.01</td>
-                                                                                <td width="10%">10</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                                <td width="10%">2</td>
-                                                                                <td width="40%" class="tas"><a href="#">월간 일정표(18년09월)</a></td>
-                                                                                <td width="20%">관리자</td>
-                                                                                <td width="20%">2018.01.01</td>
-                                                                                <td width="10%">10</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                                <td width="10%">1</td>
-                                                                                <td width="40%" class="tas"><a href="#">월간 일정표(18년08월)</a></td>
-                                                                                <td width="20%">관리자</td>
-                                                                                <td width="20%">2018.01.01</td>
-                                                                                <td width="10%">10</td>
+                                                                        <tr th:each="sc:${list}">
+                                                                                <td width="10%">[[${sc.no}]]</td>
+                                                                                <td width="40%" class="tas"><a href="schedule/view">[[${sc.title}]]</a></td>
+                                                                                <td width="20%">[[${sc.name}]]</td>
+                                                                                <td width="20%">[[${#dates.format(sc.date,'yyyy-MM-dd')}]]</td>
+                                                                                <td width="10%">[[${sc.count}]]</td>
                                                                         </tr>
                                                                 </tbody>
                                                         </table>
                                                         
                                                         <div class="table-footer">
-                                                                <i class="fas fa-search border"><input class=search placeholder="제목+내용"></i>
-                                                                <button>검색</button>
+                                                                <i class="fas fa-search border">
+                                                                <input type="text" id="searchKeyword" th:value="${pageVO.keyword}"class=search placeholder="제목+내용">
+                                                                </i>
+                                                                <button id="searchBtn">검색</button>
                                                         </div>
                                                         <div class="pull-right">
-                                                                <button onclick="window.open('/admin/form','_blank','width=810 height=780')">글쓰기</button>
+                                                                <button onclick="window.open('/admin/schedule','_blank','width=810 height=780')">글쓰기</button>
                                                         </div>
                                                         <ul class="paging-ul">  
-                                                                <li><a class="paging-pre" href="#">이전</a></li>
-                                                                <li><a href="#">1</a></li>
-                                                                <li><a href="#">2</a></li>
-                                                                <li><a href="#">3</a></li>
-                                                                <li><a href="#">4</a></li>
-                                                                <li><a href="#">5</a></li>
-                                                                <li><a href="#">6</a></li>
-                                                                <li><a href="#">7</a></li>
-                                                                <li><a href="#">8</a></li>
-                                                                <li><a href="#">9</a></li>
-                                                                <li><a href="#">10</a></li>
-                                                                <li><a class="paging-aft" href="#">다음</a></li>
+                                                                <li th:if="${pager.prevPage}">
+                                                                <a th:href="${pager.prevPage.pageNumber}+1" class="paging-pre">이전</a>
+                                                                </li>
+                                                                <li th:each="p:${pager.pageList}">
+                                                                <a th:classappend="${p.pageNumber==pager.currentPageNum -1}?active:''" th:href="${p.pageNumber}+1">[[${p.pageNumber}+1]]</a></li>
+                                                                <li th:if="${pager.nextPage}"><a class="paging-aft" th:href="${pager.nextPage.pageNumber}+1">다음</a></li>
                                                         </ul>
+                                                        ([[${pager}]])
+														<form id="f1" th:action="@{schedule}" method="GET">
+															<input type="hidden" name="page" th:value=${pager.currentPageNum}>
+															<input type="hidden" name="size" th:value=${pager.currentPage.pageSize}>
+															<input type="hidden" name="type" th:value=${pageVO.type}>
+															<input type="hidden" name="keyword" th:value="${pageVO.keyword}">
+														</form>
+														<script type="text/javascript">
+															$(document).ready(function(){
+																var formObj = $("#f1");
+																$(".paging-ul a").click(function(e) {
+																	e.preventDefault();
+																	formObj.find('[name="page"]').val($(this).attr('href'));
+																	formObj.submit();
+																});
+																$("#searchBtn").click(function(e){
+																	var keywordStr=$("#searchKeyword").val();
+																	formObj.find("[name='keyword']").val(keywordStr);
+																	formObj.find("[name='page']").val('1');
+																	formObj.submit();
+																});
+																$("#searchKeyword").keydown(function(e){
+																	if(e.keyCode==13){
+																	var keywordStr=$("#searchKeyword").val();
+																	formObj.find("[name='keyword']").val(keywordStr);
+																	formObj.find("[name='page']").val('1');
+																	formObj.submit();
+																	}
+																});
+															});
+														</script>
                                                 </div>
+                                                
                                         </div>
                                 </div>
                         </div>
                 </div>
         </section>
-        <div id="footer">
-                <div class="container">
-                        <div class="footer-cont">
-                                <h3>금빛주야보호센터</h3><small> 주야간보호센터/재가요양</small>
-                                <p style="margin-top:12">대표 : 김건완 &nbsp;|&nbsp; TEL 010-1234-5678 &nbsp;|&nbsp; FAX
-                                        041)123-4567 &nbsp;|&nbsp; 사업자번호 : 123-45-6789</p>
-                                <p><i class="fas fa-map-marker-alt" style="font-size:12; color: grey"></i> 충청남도 보령시 청라면
-                                        무슨리 123-456번지</p>
-                                <br>
-                                <div style="text-align: center">© 2017 juyacenter. ALL RIGHTS RESERVED.</div>
-                        </div>
-                </div>
-        </div>
-        <script type="text/javascript" src="../ex1.js"></script>
+	<div th:insert="~{fragments/footer::footer}"></div>
+        <script type="text/javascript" src="/ex1.js"></script>
 </body>
 
 </html>

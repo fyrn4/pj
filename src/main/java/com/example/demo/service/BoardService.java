@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import com.example.demo.model.News;
 import com.example.demo.model.NewsUploadFile;
 import com.example.demo.model.Notice;
 import com.example.demo.model.NoticeUploadFile;
+import com.example.demo.model.PageVO;
 import com.example.demo.model.Photo;
 import com.example.demo.model.PhotoUploadFile;
 import com.example.demo.model.Schedule;
@@ -34,6 +36,7 @@ import com.example.demo.repository.PhotoFileRepository;
 import com.example.demo.repository.PhotoRepository;
 import com.example.demo.repository.ScheduleFileRepository;
 import com.example.demo.repository.ScheduleRepository;
+import com.querydsl.core.types.Predicate;
 
 @Service
 public class BoardService {
@@ -64,6 +67,16 @@ public class BoardService {
 		Pageable pag = new PageRequest(to,10,Sort.Direction.DESC,"no");
 		Page<Schedule> result = scherepo.findByNoGreaterThan(0, pag);
 		return result;
+	}
+	public Page<Schedule> pager(Pageable pag){
+		return scherepo.findAll(scherepo.makePredicate(null, null),pag);
+	}
+	public Page<Schedule> searching(PageVO vo,Pageable pag){
+		
+		return scherepo.findAll(scherepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
+	}
+	public Optional<Schedule> scheduleView(int no) {
+		return scherepo.findById(no);
 	}
 	
 	/*schedule Service*/

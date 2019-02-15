@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.Member;
+import com.example.demo.model.PageMaker;
 import com.example.demo.model.PageVO;
+import com.example.demo.model.Schedule;
+import com.example.demo.repository.ScheduleRepository;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.MemberService;
 
@@ -28,6 +32,8 @@ public class MainController {
 	MemberService ms;
 	@Autowired
 	BoardService bs;
+	@Autowired
+	ScheduleRepository scherepo;
 	
 	@GetMapping("/")
 	public String mainPage(@AuthenticationPrincipal Principal principal, Model model) {
@@ -109,8 +115,25 @@ public class MainController {
 	@GetMapping("pgm/schedule")
 	public String pgmSchedule(PageVO vo,Model model) {
 		Pageable page = vo.makePageable(0, "no");
+//		Page<Schedule> result = bs.pager(page);
+		Page<Schedule> result = bs.searching(vo, page);
+		model.addAttribute("list",result);	
+//		model.addAttribute("pager",new PageMaker(result));
+		
+		model.addAttribute("pager",new PageMaker(result));
 		System.out.println(page);
 		return "프로그램/프로그램-일정표";
+	}
+	@GetMapping("pgm/schedule/view")
+	public String pgmScheduleBoardView(@RequestParam("no")int no, PageVO vo, Model model) {
+		Pageable page = vo.makePageable(0, "no");
+//		Page<Schedule> result = bs.pager(page);
+		Page<Schedule> result = bs.searching(vo, page);
+		model.addAttribute("list",result);	
+//		model.addAttribute("pager",new PageMaker(result));
+		model.addAttribute("content",bs.scheduleView(no));
+		model.addAttribute("pager",new PageMaker(result));
+		return "프로그램/프로그램-일정표세부";
 	}
 
 	@GetMapping("pgm/menu")

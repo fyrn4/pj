@@ -87,8 +87,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							<div class="row">
 								<div class="pView-news-grid">
 									<ul class="pView-news-thumbnail">
-										<li><a href="#" class="pView-news-href"><img
-												src="main/news.jpg" /></a></li>
+										<li><a href="#" id="img-container" class="pView-news-href"></a></li>
 									</ul>
 									<ul class="pView-news-word">
 										<li>
@@ -98,11 +97,21 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 												</div>
 											</a>
 										</li>
-										<li>
-											<div th:each="news:${news}"class="pView-news-cont">
-												[[${news.content}]]
-											</div>
+										<li id="news-content">
+											
 										</li>
+										<script th:inline="javascript">
+											var str = [[${news}]];
+											console.log(str[0])
+											var contentDom = new DOMParser().parseFromString(str[0].content, "text/html");
+											$('#news-content')
+												.append($("<div>")
+												.addClass("pView-news-cont")
+												.text(contentDom.firstElementChild.innerText))
+												
+											document.getElementById("img-container").innerHTML=
+												contentDom.getElementsByTagName("img")[0].outerHTML
+										</script>
 									</ul>
 								</div>
 							</div>

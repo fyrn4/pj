@@ -8,6 +8,9 @@ public class PageVO {
 	private static final int DEFAULT_SIZE = 10;
 	private static final int DEFAULT_MAX_SIZE = 50;
 	
+	private String keyword;
+	private String type;
+	
 	private int page;
 	private int size;
 	
@@ -31,5 +34,17 @@ public class PageVO {
 		Sort.Direction dir = direction == 0 ? Sort.Direction.DESC : Sort.Direction.ASC;
 		return PageRequest.of(this.page -1 , this.size, dir, props);
 		
+	}
+	public String getKeyword() {
+		return keyword;
+	}
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type=type;
 	}
 }
