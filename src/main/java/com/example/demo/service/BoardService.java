@@ -5,14 +5,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Food;
@@ -23,6 +20,7 @@ import com.example.demo.model.Notice;
 import com.example.demo.model.NoticeUploadFile;
 import com.example.demo.model.PageVO;
 import com.example.demo.model.Photo;
+import com.example.demo.model.PhotoPageVO;
 import com.example.demo.model.PhotoUploadFile;
 import com.example.demo.model.Schedule;
 import com.example.demo.model.ScheduleUploadFile;
@@ -36,7 +34,6 @@ import com.example.demo.repository.PhotoFileRepository;
 import com.example.demo.repository.PhotoRepository;
 import com.example.demo.repository.ScheduleFileRepository;
 import com.example.demo.repository.ScheduleRepository;
-import com.querydsl.core.types.Predicate;
 
 @Service
 public class BoardService {
@@ -63,23 +60,18 @@ public class BoardService {
 	@Autowired
 	NoticeFileRepository noticeFileRepo;
 	
-	public Page<Schedule> testPaging(int to) {
-		Pageable pag = new PageRequest(to,10,Sort.Direction.DESC,"no");
-		Page<Schedule> result = scherepo.findByNoGreaterThan(0, pag);
-		return result;
-	}
-	public Page<Schedule> pager(Pageable pag){
+	/*schedule Service*/
+	/*public Page<Schedule> pager(Pageable pag){
 		return scherepo.findAll(scherepo.makePredicate(null, null),pag);
-	}
+	}*/
 	public Page<Schedule> searching(PageVO vo,Pageable pag){
 		
 		return scherepo.findAll(scherepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
 	}
-	public Optional<Schedule> scheduleView(int no) {
-		return scherepo.findById(no);
+	public Schedule scheduleView(int no) {
+		return scherepo.findScheduleByNo(no);
 	}
 	
-	/*schedule Service*/
 	public List<Schedule> scheduleList() {
 		List<Schedule> list = (List<Schedule>) scherepo.findAll();
 		return list;
@@ -138,6 +130,15 @@ public class BoardService {
 		}
 	}
 	/*식단표 서비스*/
+
+	public Page<Food> foodSearching(PageVO vo,Pageable pag){
+		
+		return foodrepo.findAll(foodrepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
+	}
+	public Food foodView(int no) {
+		return foodrepo.findFoodByNo(no);
+	}
+	
 	public List<Food> foodList() {
 		List<Food> list = (List<Food>) foodrepo.findAll();
 		return list;
@@ -199,6 +200,14 @@ public class BoardService {
 		}
 	}
 	/*소식지 서비스*/
+	public Page<News> newsSearching(PageVO vo,Pageable pag){
+		
+		return newsrepo.findAll(newsrepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
+	}
+	public News newsView(int no) {
+		return newsrepo.findNewsByNo(no);
+	}
+	
 	public List<News> newsList() {
 		List<News> list = (List<News>) newsrepo.findAll();
 		return list;
@@ -260,6 +269,13 @@ public class BoardService {
 		}
 	}
 	/*공지사항 서비스 */
+	public Page<Notice> noticeSearching(PageVO vo,Pageable pag){
+		
+		return noticerepo.findAll(noticerepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
+	}
+	public Notice noticeView(int no) {
+		return noticerepo.findNoticeByNo(no);
+	}
 	public List<Notice> noticeList() {
 		List<Notice> list = (List<Notice>) noticerepo.findAll();
 		return list;
@@ -320,6 +336,13 @@ public class BoardService {
 		}
 	}
 	/*포토갤러리 서비스 */
+	public Page<Photo> photoSearching(PhotoPageVO vo,Pageable pag){
+		
+		return photorepo.findAll(photorepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
+	}
+	public Photo photoView(int no) {
+		return photorepo.findPhotoByNo(no);
+	}
 	public List<Photo> photoList() {
 		List<Photo> list = (List<Photo>) photorepo.findAll();
 		return list;

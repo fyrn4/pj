@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.model.Member;
 import com.example.demo.model.PageMaker;
 import com.example.demo.model.PageVO;
+import com.example.demo.model.PhotoPageVO;
 import com.example.demo.model.Schedule;
 import com.example.demo.repository.ScheduleRepository;
 import com.example.demo.service.BoardService;
@@ -115,11 +116,8 @@ public class MainController {
 	@GetMapping("pgm/schedule")
 	public String pgmSchedule(PageVO vo,Model model) {
 		Pageable page = vo.makePageable(0, "no");
-//		Page<Schedule> result = bs.pager(page);
 		Page<Schedule> result = bs.searching(vo, page);
 		model.addAttribute("list",result);	
-//		model.addAttribute("pager",new PageMaker(result));
-		
 		model.addAttribute("pager",new PageMaker(result));
 		System.out.println(page);
 		return "프로그램/프로그램-일정표";
@@ -127,30 +125,72 @@ public class MainController {
 	@GetMapping("pgm/schedule/view")
 	public String pgmScheduleBoardView(@RequestParam("no")int no, PageVO vo, Model model) {
 		Pageable page = vo.makePageable(0, "no");
-//		Page<Schedule> result = bs.pager(page);
 		Page<Schedule> result = bs.searching(vo, page);
 		model.addAttribute("list",result);	
-//		model.addAttribute("pager",new PageMaker(result));
 		model.addAttribute("content",bs.scheduleView(no));
 		model.addAttribute("pager",new PageMaker(result));
 		return "프로그램/프로그램-일정표세부";
 	}
 
 	@GetMapping("pgm/menu")
-	public String pgmMenu() {
+	public String pgmMenu(PageVO vo,Model model) {
+		Pageable page = vo.makePageable(0,"no");
+		model.addAttribute("list",bs.foodSearching(vo, page));
+		model.addAttribute("pager", new PageMaker(bs.foodSearching(vo, page)));
 		return "프로그램/프로그램-식단표";
+	}
+	@GetMapping("pgm/menu/view")
+	public String pgmMenuView(@RequestParam("no")int no, PageVO vo, Model model) {
+		Pageable page=vo.makePageable(0,"no");
+		model.addAttribute("list",bs.foodSearching(vo, page));
+		model.addAttribute("content", bs.foodView(no));
+		model.addAttribute("pager", new PageMaker(bs.foodSearching(vo, page)));
+		return "프로그램/프로그램-식단표세부";
 	}
 	/*커뮤니티 서비스 페이저*/
 	@GetMapping("comm/notice")
-	public String commNotice() {
+	public String commNotice(PageVO vo, Model model) {
+		Pageable page=vo.makePageable(0,"no");
+		model.addAttribute("list",bs.noticeSearching(vo, page));
+		model.addAttribute("pager", new PageMaker(bs.noticeSearching(vo, page)));
 		return "커뮤니티/커뮤니티-공지사항";
 	}
+	@GetMapping("comm/notice/view")
+	public String commNoticeView(@RequestParam("no") int no, PageVO vo, Model model) {
+		Pageable page=vo.makePageable(0,"no");
+		model.addAttribute("list",bs.noticeSearching(vo, page));
+		model.addAttribute("content", bs.noticeView(no));
+		model.addAttribute("pager", new PageMaker(bs.noticeSearching(vo, page)));
+		return "커뮤니티/커뮤니티-공지사항세부";
+	}
 	@GetMapping("comm/news")
-	public String commNews() {
+	public String commNews(PageVO vo, Model model) {
+		Pageable page=vo.makePageable(0,"no");
+		model.addAttribute("list",bs.newsSearching(vo, page));
+		model.addAttribute("pager", new PageMaker(bs.newsSearching(vo, page)));
 		return "커뮤니티/커뮤니티-월간소식지";
 	}
+	@GetMapping("comm/news/view")
+	public String commNewsView(@RequestParam("no") int no, PageVO vo, Model model) {
+		Pageable page=vo.makePageable(0,"no");
+		model.addAttribute("list",bs.newsSearching(vo, page));
+		model.addAttribute("content",bs.newsView(no));
+		model.addAttribute("pager", new PageMaker(bs.newsSearching(vo, page)));
+		return "커뮤니티/커뮤니티-월간소식지세부";
+	}
 	@GetMapping("comm/photo")
-	public String commPhoto() {
+	public String commPhoto(PhotoPageVO vo, Model model) {
+		Pageable page=vo.makePageable(0,"no");
+		model.addAttribute("list",bs.photoSearching(vo, page));
+		model.addAttribute("pager", new PageMaker(bs.photoSearching(vo, page)));
 		return "커뮤니티/커뮤니티-포토갤러리";
+	}
+	@GetMapping("comm/photo/view")
+	public String commPhotoView(@RequestParam("no") int no, PhotoPageVO vo, Model model) {
+		Pageable page=vo.makePageable(0,"no");
+		model.addAttribute("list",bs.photoSearching(vo, page));
+		model.addAttribute("content",bs.photoView(no));
+		model.addAttribute("pager", new PageMaker(bs.photoSearching(vo, page)));
+		return "커뮤니티/커뮤니티-포토갤러리세부";
 	}
 }

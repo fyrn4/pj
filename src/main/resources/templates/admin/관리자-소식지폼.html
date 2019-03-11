@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>관리자-소식지 글쓰기 폼</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
                 crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
@@ -31,6 +31,16 @@
         </script>
         	
 </head>
+<style>
+	.container{
+		width:790px;
+		max-width:none !important;
+	}
+	p {
+		margin-top:0 !important;
+		margin-bottom:0 !important;
+	}
+</style>
 <body>
 	<div class="modal fade">
 		<div class="modal-dialog">
@@ -96,6 +106,7 @@
                         placeholder: '소식지에 대한 게시물을 작성해주세요.',
                         tabsize: 2,
                         height: 500,
+                        width: 760,
                         lang: 'ko-KR',
  						callbacks : {
 							onImageUpload : function(files){

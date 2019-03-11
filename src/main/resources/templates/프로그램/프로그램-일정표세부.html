@@ -36,25 +36,26 @@
                 </div>
                 <div class="container">
                         <div id="section1" class="section">
-                                <h2>일정표</h2>
+                                <h2 class="section-h2">일정표</h2>
                                 <div class="sub-section">
                                         <div class="section-side-layout">
                                                 <div class="sub-title"><i class="fas fa-check"></i> 월간 일정표</div>
                                         </div>
                                         <div class="section-content-layout"> 
-                                                <div class="content">
-                                                        <div class="board-view-head">
-                                                                <div class="board-view-no">#11</div>
-                                                                <div class="board-view-title">제목</div>
+                                                <div class="content"  th:object="${content}">
+                                                        
+                                                       <div class="board-view-head">
+                                                                <div class="board-view-no">[[*{no}]]</div>
+                                                                <div class="board-view-title">[[*{title}]]</div>
                                                                 <div class="board-view-date">
-                                                                        <i class="far fa-clock" style="padding:3px; font-size:11px; "></i>2018.01.01 15:50 &nbsp;
-                                                                        <i class="far fa-eye" style="padding:3px; font-size:11px; "></i>0
+                                                                        <i class="far fa-clock" style="padding:3px; font-size:11px; "></i>[[${#dates.format(content.date,'yyyy.MM.dd HH:mm')}]] &nbsp;
+                                                                        <i class="far fa-eye" style="padding:3px; font-size:11px; "></i>[[*{count}]]
                                                                 </div>
                                                                 
                                                         </div>
                                                         <div class="board-view-body">
                                                                 <div class="board-content">
-																	[[${content}]]
+																	<div th:utext=*{content}></div>
                                                                 </div>
                                                         </div>
                                                         <hr>
@@ -102,7 +103,7 @@
                                                                 <tbody>
                                                                         <tr th:each="sc:${list}">
                                                                                 <td width="10%">[[${sc.no}]]</td>
-                                                                                <td width="40%" class="tas"><a href="schedule/view">[[${sc.title}]]</a></td>
+                                                                                <td width="40%" class="tas"><a th:href="@{'/pgm/schedule/view?no=' + ${sc.no} + '&page='+${pager.currentPageNum}}">[[${sc.title}]]</a></td>
                                                                                 <td width="20%">[[${sc.name}]]</td>
                                                                                 <td width="20%">[[${#dates.format(sc.date,'yyyy-MM-dd')}]]</td>
                                                                                 <td width="10%">[[${sc.count}]]</td>
@@ -128,7 +129,7 @@
                                                                 <li th:if="${pager.nextPage}"><a class="paging-aft" th:href="${pager.nextPage.pageNumber}+1">다음</a></li>
                                                         </ul>
                                                         ([[${pager}]])
-														<form id="f1" th:action="@{schedule}" method="GET">
+														<form id="f1" th:action="@{~/pgm/schedule}" method="GET">
 															<input type="hidden" name="page" th:value=${pager.currentPageNum}>
 															<input type="hidden" name="size" th:value=${pager.currentPage.pageSize}>
 															<input type="hidden" name="type" th:value=${pageVO.type}>

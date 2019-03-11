@@ -27,6 +27,67 @@ function mb_btn(e) {
     }
 }
 
+$(document).ready(function(){
+  var imgs;
+  var img_count;
+  var img_position = 1;
+  $('#back').css('display','none');
+  imgs = $(".slide ul");
+  img_count = imgs.children().length;
+  $('.slide-page').text('- '+img_position+'/'+img_count+' -');
+  //버튼을 클릭했을 때 함수 실행
+  $('#back').click(function () {
+    back();
+  });
+  $('#next').click(function () {
+    next();
+  });
+
+  function back() {
+    if(1<img_position){
+      imgs.animate({
+        left:'+=280px'
+      });
+      img_position--;
+      $('.slide-page').text('- '+img_position+'/'+img_count+' -');
+      console.log('img_position:',img_position,'&img_count:',img_count);
+      console.log('<-:',img_position);
+      if(img_position==1){
+    	  console.log('pre');
+    	  $('#back').css('display','none');
+      }else{
+    	  $('#next').css('display','block');
+      }
+    }
+  }
+  function next() {
+    if(img_count>img_position){
+      imgs.animate({
+        left:'-=280px'
+      });
+      img_position++;
+      $('.slide-page').text('- '+img_position+'/'+img_count+' -');
+      console.log('img_position:',img_position,'&img_count:',img_count);
+      console.log('->:',img_position);
+      if(img_position==img_count){
+    	  console.log('rast');
+    	  $('#next').css('display','none');
+      }else{
+    	  $('#back').css('display','block');
+      }
+    }
+  }
+  
+  
+
+  //이미지 끝까지 가면 버튼 사라지기
+  
+
+  //첫 이미지로 돌아오기
+
+
+});
+
     
 // // 모달 로그인
 //        // Get the modal

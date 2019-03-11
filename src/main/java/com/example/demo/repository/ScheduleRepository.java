@@ -17,7 +17,7 @@ import com.querydsl.core.types.Predicate;
 public interface ScheduleRepository extends CrudRepository<Schedule, Integer>,QuerydslPredicateExecutor<Schedule>{
 	Schedule findScheduleByName(String name);
 	Page<Schedule> findByNoGreaterThan(int no, Pageable paging);
-	
+	Schedule findScheduleByNo(int no);
 	default Predicate makePredicate(String type, String keyword) {
 		BooleanBuilder builder = new BooleanBuilder();
 		QSchedule sche = QSchedule.schedule;
@@ -32,4 +32,5 @@ public interface ScheduleRepository extends CrudRepository<Schedule, Integer>,Qu
 		}
 		return builder;
 	}
+	
 }
