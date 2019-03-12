@@ -1,0 +1,142 @@
+<!DOCTYPE html5>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>금빛-식단표 안내</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/ex1.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+                crossorigin="anonymous">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+
+<body>
+	<div th:insert="~{fragments/header::header}"></div>
+        <section id="page-content">
+                <div class="container">
+                        <div class="service-banner">
+                                <img src="/service_banner/배너3.PNG">
+                        </div>
+                        <div class="siteMap-tap">
+                                <div class="siteMap-title">프로그램</div>&nbsp;
+                                <i class="fas fa-caret-right"></i>
+                                <div class="siteMap-menu">
+                                        <a href="/pgm/about">프로그램 안내</a>
+                                        <a href="/pgm/schedule">일정표</a>
+                                        <a href="/pgm/menu" class="siteMap-menu-active">식단표</a>
+                                </div>
+                                <div class="siteMap">
+                                        <a href="/"><i class="fas fa-home"></i></a> <i class="fas fa-angle-right"></i>
+                                        <a href="/pgm/about">프로그램</a> <i class="fas fa-angle-right"></i>
+                                        <a href="/pgm/menu">식단표</a>
+                                </div>
+                        </div>  
+                        
+                </div>
+                <div class="container">
+                        <div id="section1" class="section">
+                                <h2 class="section-h2">식단표</h2>
+                                <div class="sub-section">
+                                        <div class="section-side-layout">
+                                               <div class="sub-title"><i class="fas fa-check"></i> 월간 식단표</div>
+                                        </div>
+                                        <div class="section-content-layout"> 
+                                                <div class="content" th:object="${content}">
+                                                        <div class="board-view-head">
+                                                                <div class="board-view-no">[[*{no}]]</div>
+                                                                <div class="board-view-title">[[*{title}]]</div>
+                                                                <div class="board-view-date">
+                                                                        <i class="far fa-clock" style="padding:3px; font-size:11px; "></i>[[${#dates.format(content.date,'yyyy.MM.dd HH:mm')}]] &nbsp;
+                                                                        <i class="far fa-eye" style="padding:3px; font-size:11px; "></i>[[*{count}]]
+                                                                </div>
+                                                                
+                                                        </div>
+                                                        <div class="board-view-body">
+                                                                <div class="board-content">
+																	<div th:utext=*{content}></div>
+                                                                </div>
+                                                        </div>
+                                                        <hr>
+                                                        <!-- 테이블 -->
+                                                       <table class="board-table">
+                                                                <thead>
+                                                                        <tr>
+                                                                                <th width="10%">번호</th>
+                                                                                <th width="40%" class="tas">제목</th>
+                                                                                <th width="20%">글쓴이</th>
+                                                                                <th width="20%">날짜</th>
+                                                                                <th width="10%">조회수</th>
+                                                                        </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                       <tr th:each="list:${list}">
+                                                                                <td width="10%">[[${list.no}]]</td>
+                                                                                <td width="40%" class="tas"><a th:href="@{'/pgm/menu/view?no=' + ${list.no} + '&page='+${pager.currentPageNum}}">[[${list.title}]]</a></td>
+                                                                                <td width="20%">[[${list.name}]]</td>
+                                                                                <td width="20%">[[${#dates.format(list.date,'yyyy-MM-dd')}]]</td>
+                                                                                <td width="10%">[[${list.count}]]</td>
+                                                                        </tr>
+                                                                </tbody>
+                                                        </table>
+                                                        
+                                                        <div class="table-footer">
+                                                                <i class="fas fa-search border">
+                                                                <input type="text" id="searchKeyword" th:value="${pageVO.keyword}"class=search placeholder="제목+내용">
+                                                                </i>
+                                                                <button id="searchBtn">검색</button>
+                                                        </div>
+                                                        <div class="pull-right">
+                                                                <button onclick="window.open('/admin/food','_blank','width=810 height=780')">글쓰기</button>
+                                                        </div>
+                                                        <ul class="paging-ul">  
+                                                                <li th:if="${pager.prevPage}">
+                                                                <a th:href="${pager.prevPage.pageNumber}+1" class="paging-pre">이전</a>
+                                                                </li>
+                                                                <li th:each="p:${pager.pageList}">
+                                                                <a th:classappend="${p.pageNumber==pager.currentPageNum -1}?active:''" th:href="${p.pageNumber}+1">[[${p.pageNumber}+1]]</a></li>
+                                                                <li th:if="${pager.nextPage}"><a class="paging-aft" th:href="${pager.nextPage.pageNumber}+1">다음</a></li>
+                                                        </ul>
+                                                        ([[${pager}]])
+														<form id="f1" th:action="@{~/pgm/menu}" method="GET">
+															<input type="hidden" name="page" th:value=${pager.currentPageNum}>
+															<input type="hidden" name="size" th:value=${pager.currentPage.pageSize}>
+															<input type="hidden" name="type" th:value=${pageVO.type}>
+															<input type="hidden" name="keyword" th:value="${pageVO.keyword}">
+														</form>
+														<script type="text/javascript">
+															$(document).ready(function(){
+																var formObj = $("#f1");
+																$(".paging-ul a").click(function(e) {
+																	e.preventDefault();
+																	formObj.find('[name="page"]').val($(this).attr('href'));
+																	formObj.submit();
+																});
+																$("#searchBtn").click(function(e){
+																	var keywordStr=$("#searchKeyword").val();
+																	formObj.find("[name='keyword']").val(keywordStr);
+																	formObj.find("[name='page']").val('1');
+																	formObj.submit();
+																});
+																$("#searchKeyword").keydown(function(e){
+																	if(e.keyCode==13){
+																	var keywordStr=$("#searchKeyword").val();
+																	formObj.find("[name='keyword']").val(keywordStr);
+																	formObj.find("[name='page']").val('1');
+																	formObj.submit();
+																	}
+																});
+															});
+														</script>
+                                                </div>
+                                                
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </section>
+	<div th:insert="~{fragments/footer::footer}"></div>
+        <script type="text/javascript" src="/ex1.js"></script>
+</body>
+
+</html>
