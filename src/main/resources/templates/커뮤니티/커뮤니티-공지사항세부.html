@@ -58,7 +58,23 @@
 																	<div th:utext=*{content}></div>
                                                                 </div>
                                                         </div>
-                                                        
+                                                        <script th:inline="javascript">
+                                                        	var bno = [[*{no}]];
+                                                        	function ntcUpdate() {
+                                                        		window.open('/admin/notice/update?bno='+bno,'_blank','width=810 height=780');
+                                                        	}
+                                                        	function ntcDelete() {
+                                                        		var YesNo = confirm("정말 삭제하시겠습니까?");
+                                                        		if(YesNo == true){
+                                                        			window.location.href="/admin/notice/delete/"+bno;
+                                                        		}else{
+                                                        			return false;
+                                                        		}
+                                                        		
+                                                        	}
+                                                        </script>
+                                                        <button onclick="ntcUpdate()">수정</button>
+                                                        <button onclick="ntcDelete()">삭제</button>
                                                         <hr>
                                                         <div class="board-view-footer">
                                                                 <div class="comment-form">

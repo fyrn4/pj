@@ -4,8 +4,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>관리자-글쓰기 폼</title>
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+        <title>관리자-일정표 수정</title>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
                 crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
@@ -16,21 +15,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
         <script src="/summernote-ko-KR.js"></script>
-        <script type="text/javascript">
-	        $(window).on("beforeunload", function(event){
-	        	//$('input[name=title]').val() != 
-	        	if(true) {
-	        		return true;
-	        	}
-	        });
-	        $(window).unload(event, function() {
-	        	console.log("img href:", $('img').prop('href'))
-	        })
-	        
-	        
-        </script>
-        	
-
+       	
 </head>
 <style>
 	.container{
@@ -43,7 +28,6 @@
 	}
 </style>
 <body>
-
 	<div class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -69,12 +53,12 @@
 	<!-- /.modal -->
 	<br>
         <div class="container" style="background:#eaeaea;">
-        <form id="formSubmit"action="/admin/form" method="post">
+        <form id="formSubmit"action="/admin/form" method="post" th:object="${sc}">
         	제목<br>
-        	<input type="text" id="bno" name="bno" th:value="${bno}"/>
+        	<input type="text" id="bno" name="bno" th:value="${bno}" readonly />
         	<input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         	<input type="text" name="name" th:attr="value=${name}" readonly/>
-        	<input id="title" name="title" style='width:100%' placeholder="제목을 꼭 입력해주세요."/>
+        	<input id="title" name="title" style='width:100%'/>
         	<br>
                            내용
                 <div id="summernote"></div>
@@ -85,6 +69,15 @@
                 <button type="button" onclick="self.close()"> 취소 </button>
                 </div>
                 <div id="render"></div>
+                 <script th:inline="javascript">
+                 $(document).ready(function() {
+                	 var content = [[*{content}]];
+                	 var title = [[*{title}]];
+                	 $("#title").val(title);
+                	 $('.note-editable').html(content);
+                	 $('.note-placeholder').css('display','none');
+                 });
+                </script>
         </form>
         </div>
         
@@ -100,7 +93,7 @@
         			$('#content').val(data);
         			/* $('form').submit(); */
         			$.ajax({
-        				url: '/admin/food',
+        				url: '/admin/schedule/update',
         				type: 'post',
         				data: $('form').serialize(),
         				success: function (res) {
@@ -110,7 +103,7 @@
         			})
         		}
                 $('#summernote').summernote({
-                        placeholder: '식단표에 대한 게시물을 작성해주세요.',
+                        placeholder: '일정표에 대한 게시물을 작성해주세요.',
                         tabsize: 2,
                         height: 500,
                         width:760,
@@ -138,14 +131,14 @@
                 	  },
                       data: form_data,
                       type: "POST",
-                      url: '/admin/image/food?bno='+$('#bno').val(),
+                      url: '/admin/image/schedule?bno='+$('#bno').val(),
                       cache: false,
                       contentType: false,
                       enctype: 'multipart/form-data',
                       processData: false,
                       success: function(url) {
                         console.log(url);
-                        $(".note-editable").append('<img src="'+url+'&path=food">');
+                        $(".note-editable").append('<img src="'+url+'&path=schedule">');
                       }
                     });
                 } 

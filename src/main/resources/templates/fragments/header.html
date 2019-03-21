@@ -2,7 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="accordion.css" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="accordion.js"></script>
+<title>금빛주야간보호센터</title>
 </head>
 <body>
 	<div th:fragment="header">
@@ -43,7 +46,7 @@
 											<li><a href="/info/enter_info">입소안내</a></li>
 											<li><a href="/info/enter_cost">비용안내</a></li>
 											<li><a href="/info/enter_req">입소신청</a></li>
-											<li><a href="/info/enter_list">대기자명단</a></li>
+											<li><a href="/info/enter_list">입소현황</a></li>
 										</ul>
 									</li>
 									<li id="sub03">
@@ -58,7 +61,6 @@
 											<li><a href="/comm/notice">공지사항</a></li>
 											<li><a href="/comm/news">월간소식지</a></li>
 											<li><a href="/comm/photo">포토갤러리</a></li>
-											<li><a href="#">Q & A</a></li>
 										</ul>
 									</li>
 									<li id="sub05">
@@ -100,67 +102,69 @@
 							<button type="button" onclick="location.href='/signup'">회원가입</button>
 						</form>
 					</div>
-					<div class="mb-menu-dropDown">
+					<div id='cssmenu'>
 						<ul>
-							<li><a href="#">menu1</a>
+							<li class="active"><a href='#'><span>Home</span></a></li>
+							<li class='has-sub'><a href='#'><span>센터소개</span></a>
 								<ul>
-									<li><a href="#">menu1-1</a></li>
-									<li><a href="#">menu1-2</a></li>
-									<li><a href="#">menu1-3</a></li>
-									<li><a href="#">menu1-4</a></li>
+									<li><a href='/intro/about'><span>인사말</span></a></li>
+									<li><a href='/intro/view'><span>시설소개</span></a></li>
+									<li><a href='/intro/org'><span>조직도</span></a></li>
+									<li class='last'><a href='/intro/map'><span>오시는 길</span></a></li>
 								</ul></li>
-							<li><a href="#">menu2</a>
+							<li class='has-sub'><a href='#'><span>입소정보</span></a>
 								<ul>
-									<li><a href="#">menu2-1</a></li>
-									<li><a href="#">menu2-2</a></li>
-									<li><a href="#">menu2-3</a></li>
-									<li><a href="#">menu2-4</a></li>
+									<li><a href='/info/enter_info'><span>입소안내</span></a></li>
+									<li><a href='/info/enter_cost'><span>비용안내</span></a></li>
+									<li><a href='/info/enter_req'><span>입소신청</span></a></li>
+									<li class='last'><a href='/info/enter_list'><span>입소현황</span></a></li>
 								</ul></li>
-							<li><a href="#">menu3</a>
+							<li class='has-sub'><a href='#'><span>프로그램</span></a>
 								<ul>
-									<li><a href="#">menu3-1</a></li>
-									<li><a href="#">menu3-2</a></li>
-									<li><a href="#">menu3-3</a></li>
-									<li><a href="#">menu3-4</a></li>
+									<li><a href='/pgm/about'><span>프로그램 안내</span></a></li>
+									<li><a href='/pgm/schedule'><span>일정표</span></a></li>
+									<li class='last'><a href='/pgm/menu'><span>식단표</span></a></li>
 								</ul></li>
-							<li><a href="#">menu4</a>
+							<li class='has-sub'><a href='#'><span>커뮤니티</span></a>
 								<ul>
-									<li><a href="#">menu4-1</a></li>
-									<li><a href="#">menu4-2</a></li>
-									<li><a href="#">menu4-3</a></li>
-									<li><a href="#">menu4-4</a></li>
+									<li><a href='/comm/notice'><span>공지사항</span></a></li>
+									<li><a href='/comm/news'><span>월간소식지</span></a></li>
+									<li class='last'><a href='/comm/photo'><span>포토갤러리</span></a></li>
 								</ul></li>
+							<div style="height:150px; "></div>
 						</ul>
 					</div>
-					<!-- <ul class="acc-menu" id="accordionMenu1">
-                                        <li data-extension="close">
-                                                <div class="main-title"><span class="folder"> </span><a>menu1</a></div>
-                                                <ul class="sub">
-                                                        <li><a>sub1-1</a></li>
-                                                        <li><a>sub1-2</a></li>
-                                                        <li><a>sub1-3</a></li>
-                                                </ul>
-                                        </li>
-                                        <li data-extension="close">
-                                                <div class="main-title"><span class="folder"> </span><a>menu2</a></div>
-                                                <ul class="sub">
-                                                        <li><a>sub2-1</a></li>
-                                                        <li><a>sub2-2</a></li>
-                                                </ul>
-                                        </li>
-                                        <li data-extension="close">
-                                                <div class="main-title"><span class="folder"> </span><a>menu3</a> </div>
-                                                <ul class="sub">
-                                                        <li><a>sub3-1</a></li>
-                                                        <li><a>sub3-2</a></li>
-                                                        <li><a>sub3-3</a></li>
-                                                        <li><a>sub3-4</a></li>
-                                                </ul>
-                                        </li>
-                                        <li>
-                                                <div class="main-title"><span class="folder"> </span><a>menu4</a></div>
-                                        </li>
-                                </ul> -->
+					<!-- <div class="mb-menu-dropDown">
+						<ul>
+							<li><a href="#">센터소개</a>
+								<ul>
+									<li><a href="/intro/about">인사말</a></li>
+									<li><a href="/intro/view">시설소개</a></li>
+									<li><a href="/intro/org">조직도</a></li>
+									<li><a href="/intro/map">오시는 길</a></li>
+								</ul></li>
+							<li><a href="#">입소정보</a>
+								<ul>
+									<li><a href="/info/enter_info">입소안내</a></li>
+									<li><a href="/info/enter_cost">비용안내</a></li>
+									<li><a href="/info/enter_req">입소신청</a></li>
+									<li><a href="/info/enter_list">대기자명단</a></li>
+								</ul></li>
+							<li><a href="#">프로그램</a>
+								<ul>
+									<li><a href="/pgm/about">프로그램안내</a></li>
+									<li><a href="/pgm/schedule">일정표</a></li>
+									<li><a href="/pgm/menu">식단표</a></li>
+								</ul></li>
+							<li><a href="#">커뮤니티</a>
+								<ul>
+									<li><a href="/comm/notice">공지사항</a></li>
+									<li><a href="/comm/news">월간소식지</a></li>
+									<li><a href="/comm/photo">포토갤러리</a></li>
+								</ul></li>
+						</ul>
+					</div> -->
+					
 				</div>
 			</nav>
 		</div>

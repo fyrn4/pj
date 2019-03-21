@@ -58,6 +58,23 @@
 																	<div th:utext=*{content}></div>
                                                                 </div>
                                                         </div>
+                                                         <script th:inline="javascript">
+                                                        	var bno = [[*{no}]];
+                                                        	function nsUpdate() {
+                                                        		window.open('/admin/news/update?bno='+bno,'_blank','width=810 height=780');
+                                                        	}
+                                                        	function nsDelete() {
+                                                        		var YesNo = confirm("정말 삭제하시겠습니까?");
+                                                        		if(YesNo == true){
+                                                        			window.location.href="/admin/news/delete/"+bno;
+                                                        		}else{
+                                                        			return false;
+                                                        		}
+                                                        		
+                                                        	}
+                                                        </script>
+                                                        <button onclick="nsUpdate()">수정</button>
+                                                        <button onclick="nsDelete()">삭제</button>
                                                         <hr>
                                                         <div class="board-view-footer">
                                                                 <div class="comment-form">

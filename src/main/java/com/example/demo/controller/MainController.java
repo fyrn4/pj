@@ -182,7 +182,7 @@ public class MainController {
 	public String commPhoto(PhotoPageVO vo, Model model) {
 		Pageable page=vo.makePageable(0,"no");
 		model.addAttribute("list",bs.photoSearching(vo, page));
-		model.addAttribute("pager", new PageMaker(bs.photoSearching(vo, page)));
+		model.addAttribute("pager", new PageMaker(bs.photoSearching(vo, page))); 
 		return "커뮤니티/커뮤니티-포토갤러리";
 	}
 	@GetMapping("comm/photo/view")
@@ -192,5 +192,5 @@ public class MainController {
 		model.addAttribute("content",bs.photoView(no));
 		model.addAttribute("pager", new PageMaker(bs.photoSearching(vo, page)));
 		return "커뮤니티/커뮤니티-포토갤러리세부";
-	}
+	} 
 }

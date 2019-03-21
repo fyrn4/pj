@@ -106,7 +106,58 @@ public class BoardService {
 		System.out.println("update:" + update.toString());
 		scherepo.save(update);
 	}
+	public void scheduleDelete(int bno) {
+		scherepo.deleteById(bno);
+	}
+	public void foodDelete(int bno) {
+		foodrepo.deleteById(bno);
+	}
+	public void newsDelete(int bno) {
+		newsrepo.deleteById(bno);
+	}
+	public void noticeDelete(int bno) {
+		noticerepo.deleteById(bno);
+	}
+	public void photoDelete(int bno) {
+		photorepo.deleteById(bno);
+	}
 
+	public void deleteNoticeUploadFile(int bno) {
+		List<NoticeUploadFile> files = noticeFileRepo.findAllFnameByBno(bno);
+		for(NoticeUploadFile file : files) {
+			new File(file.getPath()+"/"+file.getFname()).delete();
+			noticeFileRepo.delete(file);
+		}
+	}
+
+	public void deletePhotoUploadFile(int bno) {
+		List<PhotoUploadFile> files = photoFileRepo.findAllFnameByBno(bno);
+		for(PhotoUploadFile file : files) {
+			new File(file.getPath()+"/"+file.getFname()).delete();
+			photoFileRepo.delete(file);
+		}
+	}
+	public void deleteScheduleUploadFile(int bno) {
+		List<ScheduleUploadFile> files = scheFileRepo.findAllFnameByBno(bno);
+		for(ScheduleUploadFile file : files) {
+			new File(file.getPath()+"/"+file.getFname()).delete();
+			scheFileRepo.delete(file);
+		}
+	}
+	public void deleteFoodUploadFile(int bno) {
+		List<FoodUploadFile> files = foodFileRepo.findAllFnameByBno(bno);
+		for(FoodUploadFile file : files) {
+			new File(file.getPath()+"/"+file.getFname()).delete();
+			foodFileRepo.delete(file);
+		}
+	}
+	public void deleteNewsUploadFile(int bno) {
+		List<NewsUploadFile> files = newsFileRepo.findAllFnameByBno(bno);
+		for(NewsUploadFile file : files) {
+			new File(file.getPath()+"/"+file.getFname()).delete();
+			newsFileRepo.delete(file);
+		}
+	}
 	public void checkDeleteImg(Schedule schedule, int bno) throws UnsupportedEncodingException {
 		Schedule sd = scherepo.findById(bno).get();
 		String str = sd.getContent();

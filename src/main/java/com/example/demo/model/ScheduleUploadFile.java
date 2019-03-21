@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,7 +17,7 @@ import lombok.ToString;
 public class ScheduleUploadFile {
 	@Id
 	private int no;
-
+	@Column
 	private int bno;
 	private String fname;
 	private String ofname;

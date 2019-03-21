@@ -63,21 +63,16 @@
                     <input type="email" id="email" name="email" class="form-control" />
                 </div>
                 	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                    <input type="submit" value="회원가입" class="btn"/>
+                    <input type="button" onclick="check(this.form)" value="회원가입" class="subtn"/>
                     <input type="button" onclick="location.href='/'" value="취소" class="btn" />
             </form>
         </div>
         <script type="text/javascript">
         $("input").keyup(function(e){
-        	
-        	
-        	
         	if(e.target.name ==="id"){
         		console.log("아이디:"+e.target.checkValidity());
             	checkValid(e.target);
             	}
-        	
-        	
         	if((e.target.name ==="pwd1") || (e.target.name ==="pwd2")){
         		console.log("비밀번호:"+e.target.checkValidity());
         	var pwd1 = $("#pwd1").val();
@@ -145,9 +140,49 @@
         		$(target).siblings().prev().prevObject.children().removeClass('err');
         	}
         }
-        function check(){
+        function check(e){
+        	var id = $('#id').val();
+        	var pwd1 = $('#pwd1').val();
+        	var pwd2 = $('#pwd1').val();
+        	var name = $('#name').val();
+        	var birth = $('#birth').val();
+        	var phone = $('#phone').val();
+        	var email = $('#email').val();
         	
-        }
+        	var fm = e;
+        	
+        	if(id == null || id == "" || id ==" "){
+        		alert('공백 또는 작성하지 않은 값이있습니다.');
+        		return ;
+        	}else{
+        		console.log('꺄르륵:',e);
+        	}
+        	/* if(pwd1 == null || pwd1 == "" || pwd1 ==" "){
+        		alert('공백 또는 작성하지 않은 값이있습니다.');
+        		return false();
+        	}
+        	if(pwd2 == null || pwd2 == "" || pwd2 ==" "){
+        		alert('공백 또는 작성하지 않은 값이있습니다.');
+        		return false();
+        	}
+        	if(name == null || name == "" || name ==" "){
+        		alert('공백 또는 작성하지 않은 값이있습니다.');
+        		return false();
+        	}
+        	if(birth == null || birth == "" || birth ==" "){
+        		alert('공백 또는 작성하지 않은 값이있습니다.');
+        		return false();
+        	}
+        	if(phone == null || phone == "" || phone ==" "){
+        		alert('공백 또는 작성하지 않은 값이있습니다.');
+        		return false();
+        	}
+        	if(email == null || email == "" || email ==" "){
+        		alert('공백 또는 작성하지 않은 값이있습니다.');
+        		return false();
+        	}
+        	document.getElementById('login-form').submit(); */
+        } 
         </script>
         <script type="text/javascript" src="login.js"></script>
 </body>

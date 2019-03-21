@@ -31,7 +31,8 @@ import com.example.demo.repository.ScheduleFileRepository;
 public class ImageService {
     
 //	static String path = "/home/juya";
-	static String path = "C:/woo/주야업로드";
+//	static String path = "C:/woo/주야업로드";
+	static String path = System.getProperty("user.home")+"/주야업로드";
 
     @Autowired
     ScheduleFileRepository scheRepo;
@@ -48,6 +49,7 @@ public class ImageService {
 
     public ScheduleUploadFile store(MultipartFile file, String subPath, int bno) throws Exception {
         try {
+        	System.out.println("paht:"+path);
             if (file.isEmpty()) {
                 throw new Exception("Failed to store empty file " + file.getOriginalFilename());
             }

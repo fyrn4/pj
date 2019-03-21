@@ -72,7 +72,7 @@
         	<input type="text" id="bno" name="bno" th:value="${bno}"/>
         	<input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         	<input type="text" name="name" th:attr="value=${name}" readonly/>
-        	<input name="title" style='width:100%' placeholder="제목을 꼭 입력해주세요."/>
+        	<input id="title" name="title" style='width:100%' placeholder="제목을 꼭 입력해주세요."/>
         	<br>
                            내용
                 <div id="summernote"></div>
@@ -88,6 +88,11 @@
         
         <script type="text/javascript">
         		var submitFn = function(){
+        			var title = $('#title').val();
+        			if(title == null || title == ""){
+        				alert('제목을 입력해주세요.');
+        				return false;
+        			}
         			var data = $('div[contenteditable]').html();
         			console.log('data:', data);
         			$('#content').val(data);

@@ -14,6 +14,7 @@
 <body>
 	<div th:insert="~{fragments/header::header}"></div>
         <section id="page-content">
+        <input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <div class="container">
                         <div class="service-banner">
                                 <img src="/service_banner/배너3.PNG">
@@ -22,14 +23,14 @@
                                 <div class="siteMap-title">프로그램</div>&nbsp;
                                 <i class="fas fa-caret-right"></i>
                                 <div class="siteMap-menu">
-                                        <a href="#">프로그램 안내</a>
-                                        <a href="#" class="siteMap-menu-active">일정표</a>
-                                        <a href="#">식단표</a>
+                                        <a href="/pgm/about">프로그램 안내</a>
+                                        <a href="/pgm/schedule" class="siteMap-menu-active">일정표</a>
+                                        <a href="/pgm/menu">식단표</a>
                                 </div>
                                 <div class="siteMap">
-                                        <a href="#"><i class="fas fa-home"></i></a> <i class="fas fa-angle-right"></i>
-                                        <a href="#">프로그램</a> <i class="fas fa-angle-right"></i>
-                                        <a href="#">일정표</a>
+                                        <a href="/"><i class="fas fa-home"></i></a> <i class="fas fa-angle-right"></i>
+                                        <a href="/pgm/about">프로그램</a> <i class="fas fa-angle-right"></i>
+                                        <a href="/pgm/schedule">일정표</a>
                                 </div>
                         </div>  
                         
@@ -43,22 +44,65 @@
                                         </div>
                                         <div class="section-content-layout"> 
                                                 <div class="content"  th:object="${content}">
-                                                        
+                                                	<div id="print_area">
                                                        <div class="board-view-head">
-                                                                <div class="board-view-no">[[*{no}]]</div>
-                                                                <div class="board-view-title">[[*{title}]]</div>
-                                                                <div class="board-view-date">
-                                                                        <i class="far fa-clock" style="padding:3px; font-size:11px; "></i>[[${#dates.format(content.date,'yyyy.MM.dd HH:mm')}]] &nbsp;
-                                                                        <i class="far fa-eye" style="padding:3px; font-size:11px; "></i>[[*{count}]]
-                                                                </div>
-                                                                
+                                                       		<div class="board-view-no">#[[*{no}]] | </div>
+                                                            <div class="board-view-title">[[*{title}]]</div>
+                                                            <div class="board-view-date">
+                                                            	<i class="far fa-clock" style="padding:3px; font-size:11px; "></i>[[${#dates.format(content.date,'yyyy.MM.dd  HH:mm')}]] &nbsp;
+                                                            </div>
+                                                        </div>
+                                                        <div class="board-view-head-sub">
+                                                        	<div class="board-view-head-sub-name">[[*{name}]]</div>
+                                                        	<div class="board-view-count">
+                                                        	<i class="far fa-eye" style="padding:3px; font-size:11px; "></i>[[*{count}]]
+                                                        	</div>
                                                         </div>
                                                         <div class="board-view-body">
                                                                 <div class="board-content">
 																	<div th:utext=*{content}></div>
                                                                 </div>
                                                         </div>
-                                                        <hr>
+                                                    </div>
+                                                        <script>
+                                                        	var initBody;
+                                                        	function beforePrint()
+                                                        	 {
+                                                        		    initBody = document.body.innerHTML;
+                                                        		    document.body.innerHTML = print_area.innerHTML;
+                                                        		}
+                                                        		function afterPrint()
+                                                        		{
+                                                        		    document.body.innerHTML = initBody;
+                                                        		}
+                                                        		function pageprint()
+                                                        		{
+                                                        		    window.onbeforeprint = beforePrint;
+                                                        		    window.onafterprint = afterPrint;
+                                                        		    window.print();
+                                                        		}
+                                                        </script>
+                                                        <script th:inline="javascript">
+                                                        	var bno = [[*{no}]];
+                                                        	function scUpdate() {
+                                                        		window.open('/admin/schedule/update?bno='+bno,'_blank','width=810 height=780');
+                                                        	}
+                                                        	function scDelete() {
+                                                        		var YesNo = confirm("정말 삭제하시겠습니까?");
+                                                        		if(YesNo == true){
+                                                        			window.location.href="/admin/schedule/delete/"+bno;
+                                                        		}else{
+                                                        			return false;
+                                                        		}
+                                                        		
+                                                        	}
+                                                        </script>
+                                                        <div class="board-view-printTab">
+                                                        <button onclick="scUpdate()">수정</button>
+                                                        <button onclick="scDelete()">삭제</button>
+                                                        <button class="float-right" onclick="pageprint()">인쇄</button>
+                                                        </div>
+                                                   <!--      <hr>
                                                         <div class="board-view-footer">
                                                                 <div class="comment-form">
                                                                         <div class="user-id">
@@ -87,7 +131,7 @@
                                                                                 </tr>
                                                                         </tbody>
                                                                 </table>
-                                                        </div>
+                                                        </div> -->
                                                         <hr>
                                                         <!-- 테이블 -->
                                                        <table class="board-table">

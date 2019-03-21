@@ -66,6 +66,37 @@ public class AdminController {
 		bs.scheduleUpdate(schedule, bno);
 		bs.checkDeleteImg(schedule, bno);
 	}
+	
+	@GetMapping("/admin/schedule/update")
+	public String scheduleUpdateForm(@AuthenticationPrincipal Principal principal, Model model,@RequestParam("bno") int bno) {
+		if(principal != null) {
+			model.addAttribute("name",principal.getName());
+			}else{model.addAttribute("name", "관리자");}
+		
+		model.addAttribute("bno",bno);
+		model.addAttribute("sc",bs.scheduleView(bno));
+		
+		return "admin/관리자-일정표수정폼";
+	}
+	
+	@PostMapping("/admin/schedule/update" )
+	@ResponseBody
+	public void scheduleUpdateFormPost(Schedule schedule, @RequestParam("bno") int bno) throws UnsupportedEncodingException {
+		System.out.println("adminform:"+schedule.toString()+"&bno:"+bno);	
+		bs.scheduleUpdate(schedule, bno);
+		bs.checkDeleteImg(schedule, bno);
+	}
+	
+	@RequestMapping("/admin/schedule/delete/{bno}")
+	public String scheduleDelete(@PathVariable("bno")int bno) {
+		
+		bs.scheduleDelete(bno);
+		bs.deleteScheduleUploadFile(bno);
+		
+		System.out.println("delete schedule");
+		return "redirect:/pgm/schedule";
+	}
+	
 	/*식단표 서비스*/
 	@GetMapping("/admin/food")
 	public String foodForm(@AuthenticationPrincipal Principal principal, Model model) {
@@ -85,6 +116,34 @@ public class AdminController {
 		System.out.println("adminform:"+food.toString()+"&bno:"+bno);	
 		bs.foodUpdate(food, bno);
 		bs.foodDeleteImg(food, bno);
+	}
+	
+	@GetMapping("/admin/food/update")
+	public String foodUpdateForm(@AuthenticationPrincipal Principal principal, Model model,@RequestParam("bno") int bno) {
+		if(principal != null) {
+			model.addAttribute("name",principal.getName());
+			}else{model.addAttribute("name", "관리자");}
+		
+		model.addAttribute("bno",bno);
+		model.addAttribute("fd",bs.foodView(bno));
+		
+		return "admin/관리자-식단표수정폼";
+	}
+	
+	@PostMapping("/admin/food/update" )
+	@ResponseBody
+	public void foodUpdateFormPost(Food food, @RequestParam("bno") int bno) throws UnsupportedEncodingException {
+		bs.foodUpdate(food, bno);
+		bs.foodDeleteImg(food, bno);
+	}
+	@RequestMapping("/admin/food/delete/{bno}")
+	public String foodDelete(@PathVariable("bno")int bno) {
+		
+		bs.foodDelete(bno);
+		bs.deleteFoodUploadFile(bno);
+		
+		System.out.println("delete food");
+		return "redirect:/pgm/menu";
 	}
 	/*소식지 서비스*/
 	@GetMapping("/admin/news")
@@ -106,6 +165,33 @@ public class AdminController {
 		bs.newsUpdate(news, bno);
 		bs.newsDeleteImg(news, bno);
 	}
+	@GetMapping("/admin/news/update")
+	public String newsUpdateForm(@AuthenticationPrincipal Principal principal, Model model,@RequestParam("bno") int bno) {
+		if(principal != null) {
+			model.addAttribute("name",principal.getName());
+			}else{model.addAttribute("name", "관리자");}
+		
+		model.addAttribute("bno",bno);
+		model.addAttribute("ns",bs.newsView(bno));
+		
+		return "admin/관리자-소식지수정폼";
+	}
+	
+	@PostMapping("/admin/news/update" )
+	@ResponseBody
+	public void newsUpdateFormPost(News news, @RequestParam("bno") int bno) throws UnsupportedEncodingException {
+		bs.newsUpdate(news, bno);
+		bs.newsDeleteImg(news, bno);
+	}
+	@RequestMapping("/admin/news/delete/{bno}")
+	public String newsDelete(@PathVariable("bno")int bno) {
+		
+		bs.newsDelete(bno);
+		bs.deleteNewsUploadFile(bno);
+		
+		System.out.println("delete news");
+		return "redirect:/comm/news";
+	}
 	/*공지사항 서비스*/
 	@GetMapping("/admin/notice")
 	public String noticeForm(@AuthenticationPrincipal Principal principal, Model model) {
@@ -125,6 +211,33 @@ public class AdminController {
 		System.out.println("adminform:"+notice.toString()+"&bno:"+bno);	
 		bs.noticeUpdate(notice, bno);
 		bs.noticeDeleteImg(notice, bno);
+	}
+	@GetMapping("/admin/notice/update")
+	public String noticeUpdateForm(@AuthenticationPrincipal Principal principal, Model model,@RequestParam("bno") int bno) {
+		if(principal != null) {
+			model.addAttribute("name",principal.getName());
+			}else{model.addAttribute("name", "관리자");}
+		
+		model.addAttribute("bno",bno);
+		model.addAttribute("ntc",bs.noticeView(bno));
+		
+		return "admin/관리자-공지사항수정폼";
+	}
+	
+	@PostMapping("/admin/notice/update" )
+	@ResponseBody
+	public void noticeUpdateFormPost(Notice notice, @RequestParam("bno") int bno) throws UnsupportedEncodingException {
+		bs.noticeUpdate(notice, bno);
+		bs.noticeDeleteImg(notice, bno);
+	}
+	@RequestMapping("/admin/notice/delete/{bno}")
+	public String noticeDelete(@PathVariable("bno")int bno) {
+		
+		bs.noticeDelete(bno);
+		bs.deleteNoticeUploadFile(bno);
+		
+		System.out.println("delete notice");
+		return "redirect:/comm/notice";
 	}
 	/*포토갤러리 서비스*/
 	@GetMapping("/admin/photo")
@@ -146,7 +259,33 @@ public class AdminController {
 		bs.photoUpdate(photo, bno);
 		bs.photoDeleteImg(photo, bno);
 	}
+	@GetMapping("/admin/photo/update")
+	public String photoUpdateForm(@AuthenticationPrincipal Principal principal, Model model,@RequestParam("bno") int bno) {
+		if(principal != null) {
+			model.addAttribute("name",principal.getName());
+			}else{model.addAttribute("name", "관리자");}
+		
+		model.addAttribute("bno",bno);
+		model.addAttribute("pt",bs.photoView(bno));
+		
+		return "admin/관리자-포토갤러리수정폼";
+	}
 	
+	@PostMapping("/admin/photo/update" )
+	@ResponseBody
+	public void photoUpdateFormPost(Photo photo, @RequestParam("bno") int bno) throws UnsupportedEncodingException {
+		bs.photoUpdate(photo, bno);
+		bs.photoDeleteImg(photo, bno);
+	}
+	@RequestMapping("/admin/photo/delete/{bno}")
+	public String photoDelete(@PathVariable("bno")int bno) {
+		
+		bs.photoDelete(bno);
+		bs.deletePhotoUploadFile(bno);
+		
+		System.out.println("delete photo");
+		return "redirect:/comm/photo";
+	}
 	/*파일업로드 / 섬네일*/
 	@PostMapping("/admin/image/{path}")
     @ResponseBody
