@@ -55,7 +55,8 @@
                                                                 <tbody>
                                                                         <tr th:each="sc:${list}">
                                                                                 <td width="10%">[[${sc.no}]]</td>
-                                                                                <td width="40%" class="tas"><a th:href="@{'/pgm/schedule/view?no=' + ${sc.no} + '&page='+${pager.currentPageNum}}">[[${sc.title}]]</a></td>
+                                                                                <td width="40%" class="tas"><a th:href="@{'/pgm/schedule/view?no=' + ${sc.no} + '&page='+${pager.currentPageNum}}">[[${sc.title}]] 
+                                                                                <span class="reply-count" th:if="${sc.replycnt != 0 && sc.replycnt > 0}" th:text="'['+${sc.replycnt}+']'"></span></a></td>
                                                                                 <td width="20%">[[${sc.name}]]</td>
                                                                                 <td width="20%">[[${#dates.format(sc.date,'yyyy-MM-dd')}]]</td>
                                                                                 <td width="10%">[[${sc.count}]]</td>
@@ -64,13 +65,11 @@
                                                         </table>
                                                         
                                                         <div class="table-footer">
-                                                                <i class="fas fa-search border">
                                                                 <input type="text" id="searchKeyword" th:value="${pageVO.keyword}" class='search' placeholder="제목+내용">
-                                                                </i>
-                                                                <button id="searchBtn">검색</button>
-                                                        </div>
-                                                        <div class="pull-right">
-                                                                <button onclick="window.open('/admin/schedule','_blank','width=810 height=780')">글쓰기</button>
+                                                                <button id="searchBtn"><i class="fas fa-search border"></i></button>
+                                                                <div class="pull-right">
+                                                                <button class="btn-write"onclick="window.open('/admin/schedule','_blank','width=810 height=780')">글쓰기</button>
+                                                        		</div>
                                                         </div>
                                                         <ul class="paging-ul">  
                                                                 <li th:if="${pager.prevPage}">
@@ -80,37 +79,12 @@
                                                                 <a th:classappend="${p.pageNumber==pager.currentPageNum -1}?active:''" th:href="${p.pageNumber}+1">[[${p.pageNumber}+1]]</a></li>
                                                                 <li th:if="${pager.nextPage}"><a class="paging-aft" th:href="${pager.nextPage.pageNumber}+1">다음</a></li>
                                                         </ul>
-                                                        ([[${pager}]])
 														<form id="f1" th:action="@{schedule}" method="GET">
 															<input type="hidden" name="page" th:value=${pager.currentPageNum}>
 															<input type="hidden" name="size" th:value=${pager.currentPage.pageSize}>
 															<input type="hidden" name="type" th:value="tc">
 															<input type="hidden" name="keyword" th:value="${pageVO.keyword}">
 														</form>
-														<script type="text/javascript">
-															$(document).ready(function(){
-																var formObj = $("#f1");
-																$(".paging-ul a").click(function(e) {
-																	e.preventDefault();
-																	formObj.find('[name="page"]').val($(this).attr('href'));
-																	formObj.submit();
-																});
-																$("#searchBtn").click(function(e){
-																	var keywordStr=$("#searchKeyword").val();
-																	formObj.find("[name='keyword']").val(keywordStr);
-																	formObj.find("[name='page']").val('1');
-																	formObj.submit();
-																});
-																$("#searchKeyword").keydown(function(e){
-																	if(e.keyCode==13){
-																	var keywordStr=$("#searchKeyword").val();
-																	formObj.find("[name='keyword']").val(keywordStr);
-																	formObj.find("[name='page']").val('1');
-																	formObj.submit();
-																	}
-																});
-															});
-														</script>
                                                 </div>
                                         </div>
                                 </div>
@@ -119,5 +93,7 @@
         </section>
         <div th:insert="~{fragments/footer::footer}"></div>
         <script type="text/javascript" src="/ex1.js"></script>
+        <script type="text/javascript" src="/pager.js"></script>
+        
 </body>
 </html>

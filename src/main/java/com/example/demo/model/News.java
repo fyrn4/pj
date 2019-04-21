@@ -27,4 +27,6 @@ public class News {
 	@CreationTimestamp
 	private Timestamp date;
 	private int count;
+	
+	private int replycnt;
 }

@@ -61,15 +61,18 @@ public class BoardService {
 	NoticeFileRepository noticeFileRepo;
 	
 	/*schedule Service*/
-	/*public Page<Schedule> pager(Pageable pag){
-		return scherepo.findAll(scherepo.makePredicate(null, null),pag);
-	}*/
+	
 	public Page<Schedule> searching(PageVO vo,Pageable pag){
-		
 		return scherepo.findAll(scherepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
 	}
 	public Schedule scheduleView(int no) {
-		return scherepo.findScheduleByNo(no);
+		Schedule obj = scherepo.findScheduleByNo(no);
+		scheduleViewCount(obj);
+		return obj;
+	}
+	public void scheduleViewCount(Schedule schedule) {
+		schedule.setCount(schedule.getCount()+1);
+		scherepo.save(schedule);
 	}
 	
 	public List<Schedule> scheduleList() {

@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,9 +20,11 @@ import com.example.demo.model.PageMaker;
 import com.example.demo.model.PageVO;
 import com.example.demo.model.PhotoPageVO;
 import com.example.demo.model.Schedule;
+import com.example.demo.model.ScheduleReply;
 import com.example.demo.repository.ScheduleRepository;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.ReplyService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +37,7 @@ public class MainController {
 	@Autowired
 	BoardService bs;
 	@Autowired
-	ScheduleRepository scherepo;
+	ReplyService rs;
 	
 	@GetMapping("/")
 	public String mainPage(@AuthenticationPrincipal Principal principal, Model model) {
@@ -129,9 +132,28 @@ public class MainController {
 		model.addAttribute("list",result);	
 		model.addAttribute("content",bs.scheduleView(no));
 		model.addAttribute("pager",new PageMaker(result));
+		
+		
+		model.addAttribute("replyCount",rs.replyCount(no));
+		model.addAttribute("reply",rs.viewList(no));
+		
 		return "프로그램/프로그램-일정표세부";
 	}
-
+	@PostMapping("/schedule/reply")
+	public String secheduleReplyInsert(ScheduleReply sr) {
+		String str = sr.getReply();
+		str = str.replaceAll("\n" , "<br/>");
+		sr.setReply(str);
+		rs.replyInsert(sr);
+		int viewNo = sr.getBno();
+		return "redirect:../pgm/schedule/view?no="+viewNo;
+	}
+	@GetMapping("/schedule/reply/delete")
+	public String scheduleReplyDelete(@RequestParam int rno, @RequestParam int bno) {
+		
+		rs.replyDelete(rno,bno);
+		return "redirect:../../pgm/schedule/view?no="+bno;
+	}
 	@GetMapping("pgm/menu")
 	public String pgmMenu(PageVO vo,Model model) {
 		Pageable page = vo.makePageable(0,"no");

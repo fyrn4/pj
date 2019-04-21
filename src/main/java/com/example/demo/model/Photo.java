@@ -27,4 +27,5 @@ public class Photo {
 	@CreationTimestamp
 	private Timestamp date;
 	private int count;
+	private int replycnt;
 }

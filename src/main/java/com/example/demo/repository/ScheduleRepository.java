@@ -4,6 +4,7 @@ package com.example.demo.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 
@@ -16,8 +17,10 @@ import com.querydsl.core.types.Predicate;
 
 public interface ScheduleRepository extends CrudRepository<Schedule, Integer>,QuerydslPredicateExecutor<Schedule>{
 	Schedule findScheduleByName(String name);
+	
 	Page<Schedule> findByNoGreaterThan(int no, Pageable paging);
 	Schedule findScheduleByNo(int no);
+	
 	default Predicate makePredicate(String type, String keyword) {
 		BooleanBuilder builder = new BooleanBuilder();
 		QSchedule sche = QSchedule.schedule;
@@ -32,5 +35,7 @@ public interface ScheduleRepository extends CrudRepository<Schedule, Integer>,Qu
 		}
 		return builder;
 	}
+	
+	
 	
 }
