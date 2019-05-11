@@ -27,6 +27,11 @@ form#login-form {
     position: relative;
     padding: 10px 40px 40px 40px;
 }
+.css-form{
+	overflow: hidden;
+    position: relative;
+    padding: 10px 40px 40px 40px;
+}
 .form-sub{
     color: #3c475d;
     position: relative;
@@ -96,6 +101,9 @@ form#login-form {
 
 .active .label-control .label-text.err {
     color: red !important;
+}
+.err{
+	color: red !important;
 }
 
 .form-control {
@@ -197,6 +205,12 @@ input.btn:hover, input.subtn:hover {
 .error {
 	font-size:small;
 	color:red;
+}
+.form-label{
+	margin-top: -10px;
+    margin-bottom: 12px;
+	font-size: 11px;
+    color: #bbb;
 }
 @media (max-width: 481px){
     form#login-form {

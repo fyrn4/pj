@@ -190,7 +190,14 @@ public class BoardService {
 		return foodrepo.findAll(foodrepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
 	}
 	public Food foodView(int no) {
-		return foodrepo.findFoodByNo(no);
+		Food obj = foodrepo.findFoodByNo(no);
+		foodViewCount(obj);
+		return obj;
+	}
+	
+	public void foodViewCount(Food food) {
+		food.setCount(food.getCount()+1);
+		foodrepo.save(food);
 	}
 	
 	public List<Food> foodList() {
@@ -259,7 +266,14 @@ public class BoardService {
 		return newsrepo.findAll(newsrepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
 	}
 	public News newsView(int no) {
-		return newsrepo.findNewsByNo(no);
+		News obj = newsrepo.findNewsByNo(no);
+		newsViewCount(obj);
+		return obj;
+	}
+	
+	public void newsViewCount(News news) {
+		news.setCount(news.getCount()+1);
+		newsrepo.save(news);
 	}
 	
 	public List<News> newsList() {
@@ -328,7 +342,13 @@ public class BoardService {
 		return noticerepo.findAll(noticerepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
 	}
 	public Notice noticeView(int no) {
-		return noticerepo.findNoticeByNo(no);
+		Notice obj = noticerepo.findNoticeByNo(no);
+		noticeViewCount(obj);
+		return obj;
+	}
+	public void noticeViewCount(Notice notice) {
+		notice.setCount(notice.getCount()+1);
+		noticerepo.save(notice);
 	}
 	public List<Notice> noticeList() {
 		List<Notice> list = (List<Notice>) noticerepo.findAll();
@@ -390,12 +410,21 @@ public class BoardService {
 		}
 	}
 	/*포토갤러리 서비스 */
+	public List<Photo> photoMainList(){
+		return photorepo.findPhotoRecentlyList();
+	}
 	public Page<Photo> photoSearching(PhotoPageVO vo,Pageable pag){
 		
 		return photorepo.findAll(photorepo.makePredicate(vo.getType(), vo.getKeyword() ), pag);
 	}
 	public Photo photoView(int no) {
-		return photorepo.findPhotoByNo(no);
+		Photo obj =photorepo.findPhotoByNo(no);
+		photoViewCount(obj);
+		return obj;
+	}
+	public void photoViewCount(Photo photo) {
+		photo.setCount(photo.getCount()+1);
+		photorepo.save(photo);
 	}
 	public List<Photo> photoList() {
 		List<Photo> list = (List<Photo>) photorepo.findAll();

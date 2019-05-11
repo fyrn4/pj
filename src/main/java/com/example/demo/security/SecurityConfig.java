@@ -26,7 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		
 		super.configure(web);
 	}
 
@@ -45,6 +44,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		.antMatchers("/")
 		.permitAll();
+		
+		http.authorizeRequests()
+		.antMatchers("/admin/*")
+		.hasRole("ADMIN");
+		
+		http.authorizeRequests()
+		.antMatchers("/myInfo/*")
+		.hasRole("USER");
 		
 		http.userDetailsService(ms);
 	}

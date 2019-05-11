@@ -83,7 +83,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						<div class="pView-grid col-4 col-mb-12">
 							<h4 class="pView-title">
 								<span class="pView-title-head">새 소식</span><small><a
-									href="#" class="more">(more)</a></small>
+									href="/comm/news" class="more">(more)</a></small>
 							</h4>
 							<div class="row">
 								<div class="pView-news-grid">
@@ -103,7 +103,6 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 										</li>
 										<script th:inline="javascript">
 											var str = [[${news}]];
-											console.log(str[0])
 											var contentDom = new DOMParser().parseFromString(str[0].content, "text/html");
 											$('#news-content')
 											.append($("<div>").addClass("pView-news-cont").text(contentDom.firstChild.innerText));														
@@ -121,7 +120,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						<div class="pView-grid col-4 col-mb-12">
 							<h4 class="pView-title">
 								<span class="pView-title-head">주간 식단표</span><small><a
-									href="#" class="more">(more)</a></small>
+									href="pgm/menu" class="more">(more)</a></small>
 							</h4>
 							<div class="pView-table">
 								<table>
@@ -136,7 +135,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						<div class="pView-grid col-4 col-mb-12">
 							<h4 class="pView-title">
 								<span class="pView-title-head">공지사항</span><small><a
-									href="#" class="more">(more)</a></small>
+									href="/comm/notice" class="more">(more)</a></small>
 							</h4>
 							<div class="pView-table">
 								<table>
@@ -156,7 +155,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			<div class="container">
 				<h4 class="pView-title">
 					<span class="pView-title-head">포토 갤러리</span><small><a
-						href="#" class="more">(more)</a></small>
+						href="/comm/photo" class="more">(more)</a></small>
 				</h4>
 				<div class="slide-remote">
 					<img id="back" src="main/lefarr.png" alt="" width="45">
@@ -164,15 +163,34 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				</div>
 				<div class="slide">
 					<ul class="photo-slide-ul">
-						<li><img src="main/인사말.jpg" alt="" width="270" height="180"></li>
-						<li><img src="main/인사말.jpg" alt="" width="270" height="180"></li>
-						<li><img src="main/인사말.jpg" alt="" width="270" height="180"></li>
-						<li><img src="main/인사말.jpg" alt=""></li>
+						<li class="image_caption_li" th:each="p:${photo}">
+								<div class="image_caption">
+									<a th:href="@{'/comm/photo/view?no='}+ ${p.no}">
+										<div class="image-box">
+											<div id="idx"></div> 
+										<strong>[[${p.title}]]</strong><span></span>
+										</div>
+									</a>
+								</div>
+							<script th:inline="javascript">
+                           			var str = [[${p.content}]];
+                           			var idx = [[${p.no}]];
+                           			$('#idx').attr('id',idx);
+                         			var contentDom = new DOMParser().parseFromString(str,"text/html");
+                           			if(contentDom.getElementsByTagName("img")[0]==null){
+                           				$('#'+idx)[0].innerHTML='<img src="/main/no-image.gif"/>';                           				
+                           			}else{
+                           				$('#'+idx)[0].innerHTML=
+										contentDom.getElementsByTagName("img")[0].outerHTML;    									
+                           			}
+							</script>
+						</li>
 					</ul>
 					<div class="slide-page"></div>
 				</div>
 			</div>
 		</section>
+		<script type="text/javascript" src="photoslide.js"></script>
 		<div th:insert="~{fragments/footer::footer}"></div>
 		<script type="text/javascript" src="ex1.js"></script>
 </body>

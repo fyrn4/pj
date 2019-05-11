@@ -20,9 +20,11 @@ public class UploadFileUtils {
 		System.out.println("uploadPathDir : " + uploadPathDir);
 		System.out.println("uploadPathDir exists:" + uploadPathDir.exists());
 		if (!uploadPathDir.exists()) {
-			uploadPathDir.mkdir();
+			uploadPathDir.mkdirs();
 		}
-		String originalfileName = file.getOriginalFilename();
+		String slash = file.getOriginalFilename();
+		int startIndex = slash.replaceAll("\\\\", "/").lastIndexOf("/");
+		String originalfileName = slash.substring(startIndex+1);
 		String savePath = calcPath(uploadPath);
 		String finalPath = uploadPath + "/" + savePath;
 		System.out.println("final dirName:" + finalPath);
@@ -32,7 +34,7 @@ public class UploadFileUtils {
 		if (!target.exists()) {
 			target.mkdir();
 		}
-		file.transferTo(new File(finalPath + "\\" + saveFileName));
+		file.transferTo(new File(finalPath + "/" + saveFileName));
 
 		ScheduleUploadFile saveFile = new ScheduleUploadFile();
 		saveFile.setBno(bno);
@@ -51,9 +53,12 @@ public class UploadFileUtils {
 		System.out.println("uploadPathDir : " + uploadPathDir);
 		System.out.println("uploadPathDir exists:" + uploadPathDir.exists());
 		if (!uploadPathDir.exists()) {
-			uploadPathDir.mkdir();
+			uploadPathDir.mkdirs();
 		}
-		String originalfileName = file.getOriginalFilename();
+		String slash = file.getOriginalFilename();
+		int startIndex = slash.replaceAll("\\\\", "/").lastIndexOf("/");
+		String originalfileName = slash.substring(startIndex+1);
+
 		String savePath = calcPath(uploadPath);
 		String finalPath = uploadPath + "/" + savePath;
 		System.out.println("final dirName:" + finalPath);
@@ -63,7 +68,7 @@ public class UploadFileUtils {
 		if (!target.exists()) {
 			target.mkdir();
 		}
-		file.transferTo(new File(finalPath + "\\" + saveFileName));
+		file.transferTo(new File(finalPath + "/" + saveFileName));
 
 		FoodUploadFile saveFile = new FoodUploadFile();
 		saveFile.setBno(bno);
@@ -81,9 +86,12 @@ public class UploadFileUtils {
 		System.out.println("uploadPathDir : " + uploadPathDir);
 		System.out.println("uploadPathDir exists:" + uploadPathDir.exists());
 		if (!uploadPathDir.exists()) {
-			uploadPathDir.mkdir();
+			uploadPathDir.mkdirs();
 		}
-		String originalfileName = file.getOriginalFilename();
+		String slash = file.getOriginalFilename();
+		int startIndex = slash.replaceAll("\\\\", "/").lastIndexOf("/");
+		String originalfileName = slash.substring(startIndex+1);
+		
 		String savePath = calcPath(uploadPath);
 		String finalPath = uploadPath + "/" + savePath;
 		System.out.println("final dirName:" + finalPath);
@@ -93,7 +101,7 @@ public class UploadFileUtils {
 		if (!target.exists()) {
 			target.mkdir();
 		}
-		file.transferTo(new File(finalPath + "\\" + saveFileName));
+		file.transferTo(new File(finalPath + "/" + saveFileName));
 
 		NewsUploadFile saveFile = new NewsUploadFile();
 		saveFile.setBno(bno);
@@ -111,9 +119,12 @@ public class UploadFileUtils {
 		System.out.println("uploadPathDir : " + uploadPathDir);
 		System.out.println("uploadPathDir exists:" + uploadPathDir.exists());
 		if (!uploadPathDir.exists()) {
-			uploadPathDir.mkdir();
+			uploadPathDir.mkdirs();
 		}
-		String originalfileName = file.getOriginalFilename();
+		String slash = file.getOriginalFilename();
+		int startIndex = slash.replaceAll("\\\\", "/").lastIndexOf("/");
+		String originalfileName = slash.substring(startIndex+1);
+		
 		String savePath = calcPath(uploadPath);
 		String finalPath = uploadPath + "/" + savePath;
 		System.out.println("final dirName:" + finalPath);
@@ -123,7 +134,7 @@ public class UploadFileUtils {
 		if (!target.exists()) {
 			target.mkdir();
 		}
-		file.transferTo(new File(finalPath + "\\" + saveFileName));
+		file.transferTo(new File(finalPath + "/" + saveFileName));
 
 		NoticeUploadFile saveFile = new NoticeUploadFile();
 		saveFile.setBno(bno);
@@ -141,9 +152,12 @@ public class UploadFileUtils {
 		System.out.println("uploadPathDir : " + uploadPathDir);
 		System.out.println("uploadPathDir exists:" + uploadPathDir.exists());
 		if (!uploadPathDir.exists()) {
-			uploadPathDir.mkdir();
+			uploadPathDir.mkdirs();
 		}
-		String originalfileName = file.getOriginalFilename();
+		String slash = file.getOriginalFilename();
+		int startIndex = slash.replaceAll("\\\\", "/").lastIndexOf("/");
+		String originalfileName = slash.substring(startIndex+1);
+		
 		String savePath = calcPath(uploadPath);
 		String finalPath = uploadPath + "/" + savePath;
 		System.out.println("final dirName:" + finalPath);
@@ -153,7 +167,7 @@ public class UploadFileUtils {
 		if (!target.exists()) {
 			target.mkdir();
 		}
-		file.transferTo(new File(finalPath + "\\" + saveFileName));
+		file.transferTo(new File(finalPath + "/" + saveFileName));
 
 		PhotoUploadFile saveFile = new PhotoUploadFile();
 		saveFile.setBno(bno);

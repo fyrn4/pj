@@ -33,6 +33,7 @@ import com.example.demo.model.Schedule;
 import com.example.demo.model.ScheduleUploadFile;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.ImageService;
+import com.example.demo.service.MemberService;
 
 @Controller
 public class AdminController {
@@ -41,11 +42,23 @@ public class AdminController {
 	BoardService bs;
 	@Autowired
 	ImageService is;
+	@Autowired
+	MemberService ms;
 	
 	@GetMapping("/admin/integrate")
 	public String adminPage() {
-		return "admin/관리자";
+		return "admin/admin";
 	}
+	@GetMapping("/admin/member_list")
+	public String adminMemberListPage(Model model) {
+		model.addAttribute("list", ms.memberlist());
+		return "admin/admin-memberlist";
+	}
+	@GetMapping("/admin/enter_list")
+	public String adminEnterListPage() {
+		return "admin/admin-enterlist";
+	}
+	
 	/*일정표 서비스*/
 	@GetMapping("/admin/schedule")
 	public String scheduleForm(@AuthenticationPrincipal Principal principal, Model model) {
@@ -286,6 +299,7 @@ public class AdminController {
 		System.out.println("delete photo");
 		return "redirect:/comm/photo";
 	}
+	
 	/*파일업로드 / 섬네일*/
 	@PostMapping("/admin/image/{path}")
     @ResponseBody
@@ -337,21 +351,8 @@ public class AdminController {
 	@RequestMapping("/image")
 	public void download(HttpServletRequest req, HttpServletResponse res,
 			@RequestParam String fname, @RequestParam String ofname, @RequestParam String path) {
-		System.out.println("fname:"+fname+", ofname:"+ofname);
+		System.out.println("fname:"+fname+", ofname:"+ofname+", path:"+path);
 		is.down(req, res, ofname, fname, path);
 	}
 	
-	
-	@PostMapping("/admin/ajax")
-	@ResponseBody
-	public ResponseEntity<?> test(){
-		System.out.println("hiajax");
-		
-		return ResponseEntity.ok().body("/ajax");
-	}
-	
-	@RequestMapping("/test")
-	public String test1(Model model) throws IOException {
-		return "test";
-	}
 }

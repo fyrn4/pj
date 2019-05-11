@@ -7,8 +7,8 @@
         <title>금빛-식단표</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="/ex1.css" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-                crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" 
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
@@ -36,29 +36,21 @@
                 </div>
                 <div class="container">
                         <div id="section1" class="section">
-                                <h2 class="section-h2">식단표</h2>
+                                <h2 class="section-h2">월간 식단표</h2>
                                 <div class="sub-section">
                                         <div class="section-side-layout">
-                                                <div class="sub-title"><i class="fas fa-check"></i> 이달의 식단표</div>
+                                                <div class="sub-title"><a href="/pgm/about">프로그램 안내</a></div>
+                                                <div class="sub-title"><a href="/pgm/schedule">일정표</a></div>
+                                                <div class="sub-title active"><a href="/pgm/menu">식단표</a></div>
                                         </div>
                                         <div class="section-content-layout">
                                                 <div class="content">
                                                         <div style="text-align:center">
                                                         <img src="/프로그램/2018년12월식단표.jpg"><div class="explain">< 2018년12월 식단표 ></div>
                                                         </div>
-                                                </div>
-                                        </div>
-                                </div>
-                                <div class="sub-section">
-                                        <div class="section-side-layout">
-                                                <div class="sub-title"><i class="fas fa-check"></i> 월간 식단표</div>
-                                        </div>
-                                        <div class="section-content-layout">
-                                                <div class="content">
-                                                       <table class="board-table">
+                                                        <table class="board-table">
                                                                 <thead>
                                                                         <tr>
-                   
                                                                                 <th width="10%">번호</th>
                                                                                 <th width="40%" class="tas">제목</th>
                                                                                 <th width="20%">글쓴이</th>
@@ -71,7 +63,7 @@
                                                                                 <td width="10%">[[${list.no}]]</td>
                                                                                 <td width="40%" class="tas"><a th:href="@{'/pgm/menu/view?no=' + ${list.no} + '&page='+${pager.currentPageNum}}">[[${list.title}]]
                                                                                 <span class="reply-count" th:if="${list.replycnt != 0 && list.replycnt > 0}" th:text="'['+${list.replycnt}+']'"></span></a></td>
-                                                                                <td width="20%">[[${list.name}]]</td>
+                                                                                <td width="20%">관리자</td>
                                                                                 <td width="20%">[[${#dates.format(list.date,'yyyy-MM-dd')}]]</td>
                                                                                 <td width="10%">[[${list.count}]]</td>
                                                                         </tr>
@@ -81,7 +73,8 @@
                                                                 <input type="text" id="searchKeyword" th:value="${pageVO.keyword}" class='search' placeholder="제목+내용">
                                                                 <button id="searchBtn"><i class="fas fa-search border"></i></button>
                                                                 <div class="pull-right">
-                                                                <button class="btn-write"onclick="window.open('/admin/schedule','_blank','width=810 height=780')">글쓰기</button>
+                                                                <button sec:authorize="hasRole('ROLE_ADMIN')" 
+                                                                class="btn-write"onclick="window.open('/admin/food','_blank','width=810 height=780')">글쓰기</button>
                                                         		</div>
                                                         </div>
                                                         <ul class="paging-ul">  
@@ -98,37 +91,14 @@
 															<input type="hidden" name="type" th:value="tc">
 															<input type="hidden" name="keyword" th:value="${pageVO.keyword}">
 														</form>
-														<script type="text/javascript">
-															$(document).ready(function(){
-																var formObj = $("#f1");
-																$(".paging-ul a").click(function(e) {
-																	e.preventDefault();
-																	formObj.find('[name="page"]').val($(this).attr('href'));
-																	formObj.submit();
-																});
-																$("#searchBtn").click(function(e){
-																	var keywordStr=$("#searchKeyword").val();
-																	formObj.find("[name='keyword']").val(keywordStr);
-																	formObj.find("[name='page']").val('1');
-																	formObj.submit();
-																});
-																$("#searchKeyword").keydown(function(e){
-																	if(e.keyCode==13){
-																	var keywordStr=$("#searchKeyword").val();
-																	formObj.find("[name='keyword']").val(keywordStr);
-																	formObj.find("[name='page']").val('1');
-																	formObj.submit();
-																	}
-																});
-															});
-														</script>
                                                 </div>
                                         </div>
-                                </div>                                
+                                </div>                        
                         </div>
                 </div>
         </section>
         <div th:insert="~{fragments/footer::footer}"></div>
         <script type="text/javascript" src="/ex1.js"></script>
+        <script type="text/javascript" src="/pager.js"></script>
 </body>
 </html>

@@ -20,7 +20,6 @@
 						</a>
 					</div>
 					<div class="nav-container">
-						<!-- <span class="nav-btn"><a id="nav-btn" href="#" onclick="navbtn(event);">button<i class="fas fa-bars"></i></a></span> -->
 						<span class="nav-btn"><a id="nav-btn" href="#"
 							onclick="mb_btn(event);"><i class="fas fa-bars"></i></a></span>
 						<ul class="item-container">
@@ -45,7 +44,7 @@
 										<ul>
 											<li><a href="/info/enter_info">입소안내</a></li>
 											<li><a href="/info/enter_cost">비용안내</a></li>
-											<li><a href="/info/enter_req">입소신청</a></li>
+											<!-- <li><a href="/info/enter_req">입소신청</a></li> -->
 											<li><a href="/info/enter_list">입소현황</a></li>
 										</ul>
 									</li>
@@ -65,7 +64,14 @@
 									</li>
 									<li id="sub05">
 										<ul>
-											<li sec:authorize="isAnonymous()"><a>비로그인상태</a></li>
+											<th:block sec:authorize="isAnonymous()">
+												<li>
+													<a href="/login">로그인</a>
+												</li>
+												<li>
+													<a href="/signup">회원가입</a>
+												</li>
+											</th:block>
 											<th:block sec:authorize="isAuthenticated()">
 												<li>
 												<form action="/logout" method="post">
@@ -74,8 +80,8 @@
 													<a href="#" onClick="$(this).parent().submit()">로그아웃</a>
 												</form>
 												</li>
-												<li ><a>내 정보</a></li>
-												<li th:text="${test}">님</li>
+												<li ><a href="/myInfo">내 정보</a></li>
+												<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/integrate">관리자</a></li>
 											</th:block>
 										</ul>
 									</li>
@@ -88,7 +94,8 @@
 					<div class="mb-logo">
 						<img src="/로고/로고모바일2.png" alt="로고" width="230px">
 					</div>
-					<div class="mb-login">
+
+					<div class="mb-login" sec:authorize="isAnonymous()">
 						<form action="/login" method="post">
 							<input type="text" name="username" maxlength="12"
 								placeholder="아이디" /> <input type="password" name="password"
@@ -96,27 +103,39 @@
 								th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 							<!-- <div class="mb-login-rem"><input type="checkbox">기억하기</div> -->
 							<div class="mb-login-forget">
-								<a href="#">ID/PW 찾기</a>
+								<a href="/forgot">ID/PW 찾기</a>
 							</div>
 							<button type="submit" style="background: #3ca3da">로그인</button>
 							<button type="button" onclick="location.href='/signup'">회원가입</button>
 						</form>
 					</div>
+					<th:block sec:authorize="isAuthenticated()">
+					<div class="mb-login">
+							<form action="/logout" method="post" id="logout">
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+							</form>
+							<button type="button" style="background: #3ca3da" class="mb-login-btn-userId">[[${#authentication.name}]]</button>
+							<button type="button" onclick="location.href='/myInfo'">내 정보</button>
+							<button type="button" onclick="$('#logout').submit()">로그아웃</button>
+					</div>
+					</th:block>
 					<div id='cssmenu'>
 						<ul>
-							<li class="active"><a href='#'><span>Home</span></a></li>
+							<li class="active"><a href='/'><span>Home</span></a></li>
+							<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/integrate">관리자</a></li>
 							<li class='has-sub'><a href='#'><span>센터소개</span></a>
 								<ul>
 									<li><a href='/intro/about'><span>인사말</span></a></li>
 									<li><a href='/intro/view'><span>시설소개</span></a></li>
 									<li><a href='/intro/org'><span>조직도</span></a></li>
-									<li class='last'><a href='/intro/map'><span>오시는 길</span></a></li>
+									<li class='last'><a href='/intro/map'><span>오시는
+												길</span></a></li>
 								</ul></li>
 							<li class='has-sub'><a href='#'><span>입소정보</span></a>
 								<ul>
 									<li><a href='/info/enter_info'><span>입소안내</span></a></li>
 									<li><a href='/info/enter_cost'><span>비용안내</span></a></li>
-									<li><a href='/info/enter_req'><span>입소신청</span></a></li>
+									<!-- <li><a href='/info/enter_req'><span>입소신청</span></a></li> -->
 									<li class='last'><a href='/info/enter_list'><span>입소현황</span></a></li>
 								</ul></li>
 							<li class='has-sub'><a href='#'><span>프로그램</span></a>
@@ -131,39 +150,9 @@
 									<li><a href='/comm/news'><span>월간소식지</span></a></li>
 									<li class='last'><a href='/comm/photo'><span>포토갤러리</span></a></li>
 								</ul></li>
-							<div style="height:150px; "></div>
+							<div style="height: 150px;"></div>
 						</ul>
 					</div>
-					<!-- <div class="mb-menu-dropDown">
-						<ul>
-							<li><a href="#">센터소개</a>
-								<ul>
-									<li><a href="/intro/about">인사말</a></li>
-									<li><a href="/intro/view">시설소개</a></li>
-									<li><a href="/intro/org">조직도</a></li>
-									<li><a href="/intro/map">오시는 길</a></li>
-								</ul></li>
-							<li><a href="#">입소정보</a>
-								<ul>
-									<li><a href="/info/enter_info">입소안내</a></li>
-									<li><a href="/info/enter_cost">비용안내</a></li>
-									<li><a href="/info/enter_req">입소신청</a></li>
-									<li><a href="/info/enter_list">대기자명단</a></li>
-								</ul></li>
-							<li><a href="#">프로그램</a>
-								<ul>
-									<li><a href="/pgm/about">프로그램안내</a></li>
-									<li><a href="/pgm/schedule">일정표</a></li>
-									<li><a href="/pgm/menu">식단표</a></li>
-								</ul></li>
-							<li><a href="#">커뮤니티</a>
-								<ul>
-									<li><a href="/comm/notice">공지사항</a></li>
-									<li><a href="/comm/news">월간소식지</a></li>
-									<li><a href="/comm/photo">포토갤러리</a></li>
-								</ul></li>
-						</ul>
-					</div> -->
 					
 				</div>
 			</nav>

@@ -1,0 +1,190 @@
+.head {
+	border-bottom: 1px solid #bbb;
+}
+
+#tab-btn {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
+
+.subject {
+	font-size: 13px;
+	color: gray;
+	margin-bottom: 20px;
+}
+
+.login {
+	border-right: 1px solid #bbb;
+}
+
+.login, .register {
+	text-decoration: none;
+	display: block;
+	width: 100%;
+	background-color: #eee;
+	text-align: center;
+	color: gray;
+	font-size: 15px;
+	padding: 10px;
+	border-bottom: 1px solid #bbb;
+}
+
+.active {
+	background-color: white;
+	color: lightcoral;
+	border-bottom: 1px solid white;
+}
+
+.content, .other {
+	width: 100%;
+	padding: 20px 30px 30px 30px;
+}
+
+.other {
+	display: none;
+}
+
+.inp {
+	width: 100%;
+	padding: 6px;
+	margin-bottom: 15px;
+	border: 1px solid #bbb; background-color : #fff;
+	color: #666;
+	background-color: #fff;
+}
+
+.inp:focus {
+	outline: none;
+}
+
+#sub-btn {
+	width: 100%;
+	padding: 8px;
+	border: none;
+	font-size: 15px;
+	font-weight: bold;
+	background-color: #f44336;
+	color: #fff;
+	cursor: pointer;
+}
+
+#sub-btn:focus {
+	outline: none;
+}
+
+#forgot {
+	font-size: 20px;
+	color: #444;
+	display: block;
+}
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+.modal-header {
+	font-size : 20px;
+	padding-bottom: 15px;
+}
+.modal-subject {
+	display : inline-block;
+	color: #4497e5;
+    font-weight: 600;
+}
+/* Modal Content/Box */
+.modal-content {
+	background-color: #fefefe;
+	margin: 9% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 30%; /* Could be more or less, depending on screen size */
+}
+/* The Close Button */
+.close {
+	color: #aaa;
+	float: right;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+#userlist {
+	padding-top:12px;
+}
+table {
+	border-collapse:collapse;
+	border-top:1px solid #eee;
+	border-bottom:1px solid #bbb;
+	width:100%;
+}
+thead {
+	background : #eee;
+}
+thead th {
+	padding-top : 6px;
+	padding-bottom : 6px;
+	font-size:14px;
+}
+tbody {
+	font-size:14px;
+	text-align:center;
+}
+tbody tr {
+	border-top : 1px solid #bbb;
+}
+tbody td {
+	padding:5px;
+}
+.bold{
+	font-weight:bold;
+}
+#explain{
+	color:gray;
+	padding-bottom:15px;
+	font-size:13px;
+}
+.wrap-loading{
+	background-color:rgba(0,0,0,0.3);
+	position:fixed;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');
+}
+.wrap-loading img{
+	width: 70px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -21px;
+    margin-top: -21px;
+}
+.display-none{
+	display:none;
+}
+@media ( max-width : 481px ) {
+	.modal-content {
+	background-color: #fefefe;
+	margin: 30% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 100%;
+}
+}

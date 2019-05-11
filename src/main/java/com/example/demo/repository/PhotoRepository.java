@@ -1,5 +1,8 @@
 package com.example.demo.repository;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;
 
@@ -10,6 +13,8 @@ import com.querydsl.core.types.Predicate;
 
 public interface PhotoRepository extends CrudRepository<Photo, Integer>,QuerydslPredicateExecutor<Photo>{
 	Photo findPhotoByName(String name);
+	@Query(value="select * from tb_photo ORDER BY no DESC LIMIT 4",nativeQuery=true)
+	List<Photo> findPhotoRecentlyList();
 	
 	default Predicate makePredicate(String type, String keyword) {
 		BooleanBuilder builder = new BooleanBuilder();

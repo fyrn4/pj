@@ -38,8 +38,10 @@
                                 <h2 class="section-h2">일정표</h2>
                                 <div class="sub-section">
                                         <div class="section-side-layout">
-                                                <div class="sub-title"><i class="fas fa-check"></i> 월간 일정표</div>
-                                        </div>
+												<div class="sub-title"><a href="/pgm/about">프로그램 안내</a></div>
+                                                <div class="sub-title active"><a href="/pgm/schedule">일정표</a></div>
+                                                <div class="sub-title"><a href="/pgm/menu">식단표</a></div>
+                                       	</div>
                                         <div class="section-content-layout"> 
                                                 <div class="content">
                                                         <table class="board-table">
@@ -57,7 +59,7 @@
                                                                                 <td width="10%">[[${sc.no}]]</td>
                                                                                 <td width="40%" class="tas"><a th:href="@{'/pgm/schedule/view?no=' + ${sc.no} + '&page='+${pager.currentPageNum}}">[[${sc.title}]] 
                                                                                 <span class="reply-count" th:if="${sc.replycnt != 0 && sc.replycnt > 0}" th:text="'['+${sc.replycnt}+']'"></span></a></td>
-                                                                                <td width="20%">[[${sc.name}]]</td>
+                                                                                <td width="20%">관리자</td>
                                                                                 <td width="20%">[[${#dates.format(sc.date,'yyyy-MM-dd')}]]</td>
                                                                                 <td width="10%">[[${sc.count}]]</td>
                                                                         </tr>
@@ -68,7 +70,8 @@
                                                                 <input type="text" id="searchKeyword" th:value="${pageVO.keyword}" class='search' placeholder="제목+내용">
                                                                 <button id="searchBtn"><i class="fas fa-search border"></i></button>
                                                                 <div class="pull-right">
-                                                                <button class="btn-write"onclick="window.open('/admin/schedule','_blank','width=810 height=780')">글쓰기</button>
+                                                                <button sec:authorize="hasRole('ROLE_ADMIN')" 
+                                                                class="btn-write" onclick="window.open('/admin/schedule','_blank','width=810 height=780')">글쓰기</button>
                                                         		</div>
                                                         </div>
                                                         <ul class="paging-ul">  

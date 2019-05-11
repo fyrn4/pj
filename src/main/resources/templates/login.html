@@ -4,7 +4,7 @@
 <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>CSS</title>
+        <title>금빛-로그인</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="login.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -33,7 +33,7 @@
 			<input type="submit" value="로그인" class="subtn" />
                 <input type="button" value="회원가입" class="btn" onclick="location.href='/signup'"/>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <p class="text-p">아이디/비밀번호를 잊으셨나요? <a href="#">ID/PW 찾기</a> </p>
+                <p class="text-p">아이디/비밀번호를 잊으셨나요? <a href="/forgot">ID/PW 찾기</a> </p>
             </form>
         </div>
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>

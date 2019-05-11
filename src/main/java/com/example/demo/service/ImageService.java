@@ -159,7 +159,12 @@ public class ImageService {
 	}
 	
 	public static void down(HttpServletRequest req, HttpServletResponse res, String originalFileName, File file) {
-		res.setContentType("application/octet-stream");
+		int pos = originalFileName.lastIndexOf(".");
+		String ext = originalFileName.substring(pos+1); 
+		if(ext.equals("jpg")) {
+			ext = "jpeg";
+		}
+		res.setContentType("image/"+ext); //application/octet-stream 에서 변경 : IE에서 제대로 로드할 수 없음
 		String Agent = req.getHeader("USER-AGENT");
 
 		try {

@@ -2,74 +2,113 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>금빛_오시는길</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="../ex1.css" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-                crossorigin="anonymous">
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>금빛_오시는길</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="../ex1.css" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	crossorigin="anonymous">
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript"
+	src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 </head>
 
 <body>
-        <div th:insert="~{fragments/header::header}"></div>
-   		     <section id="page-content">
-                <div class="container">
-                        <div class="service-banner">
-                                <img src="/service_banner/배너1.PNG">
-                        </div>
-                        <div class="siteMap-tap">
-                                <div class="siteMap-title">센터소개</div>&nbsp;
-                                <i class="fas fa-caret-right"></i>
-                                <div class="siteMap-menu">
-                                        <a href="/intro/about">인사말</a>
-                                        <a href="/intro/view">시설소개</a>
-                                        <a href="/intro/org">조직도</a>
-                                        <a href="/intro/map" class="siteMap-menu-active">오시는 길</a>
-                                </div>
-                                <div class="siteMap">
-                                        <a href="/"><i class="fas fa-home"></i></a> <i class="fas fa-angle-right"></i>
-                                        <a href="/intro/view">센터소개</a> <i class="fas fa-angle-right"></i>
-                                        <a href="/intro/map">오시는 길</a>
-                                </div>
-                        </div>  
-                </div>
-                <div class="container">
-                        <div id="section1" class="section">
-                                <h2 class="section-h2">오시는 길</h2>
-                                <div class="sub-section">
-                                        <div class="section-side-layout">
-                                                <div class="sub-title"><i class="fas fa-check"></i> 로드맵</div>
-                                        </div>
-                                        <div class="section-content-layout">
-                                                <div class="content">
-                                                        <p>
-                                                                이리오슈.
-                                                        </p>
-                                                        <div style="text-align:center">
-                                                        <img src="/센터소개/오시는길.PNG"><div class="explain">< 사진제목 ></div>
-                                                        </div>
-                                                </div>
-                                        </div>
-                                </div>
-                                <div class="sub-section">
-                                        <div class="section-side-layout">
-                                                <div class="sub-title"><i class="fas fa-check"></i> 구글맵</div>
-                                        </div>
-                                        <div class="section-content-layout">
-                                                <div class="content">
-                                                        <p>
-                                                                구글맵적용
-                                                        </p>
-                                                </div>
-                                        </div>
-                                </div>
-                        </div>
-                </div>
-        </section>
-        <div th:insert="~{fragments/footer::footer}"></div>
-        <script type="text/javascript" src="../ex1.js"></script>
+	<div th:insert="~{fragments/header::header}"></div>
+	<section id="page-content">
+		<div class="container">
+			<div class="service-banner">
+				<img src="/service_banner/배너1.PNG">
+			</div>
+			<div class="siteMap-tap">
+				<div class="siteMap-title">센터소개</div>
+				&nbsp; <i class="fas fa-caret-right"></i>
+				<div class="siteMap-menu">
+					<a href="/intro/about">인사말</a> <a href="/intro/view">시설소개</a> <a
+						href="/intro/org">조직도</a> <a href="/intro/map"
+						class="siteMap-menu-active">오시는 길</a>
+				</div>
+				<div class="siteMap">
+					<a href="/"><i class="fas fa-home"></i></a> <i
+						class="fas fa-angle-right"></i> <a href="/intro/view">센터소개</a> <i
+						class="fas fa-angle-right"></i> <a href="/intro/map">오시는 길</a>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div id="section1" class="section">
+				<h2 class="section-h2">오시는 길</h2>
+					<div class="section-side-layout">
+						<div class="sub-title"><a href="/intro/about">인사말</a></div>
+                        <div class="sub-title"><a href="/intro/view">시설 소개</a></div>
+                        <div class="sub-title"><a href="/intro/org">조직도</a></div>
+                        <div class="sub-title active"><a href="/intro/map">오시는 길</a></div>
+					</div>
+					<div class="section-content-layout">
+						<div class="content">
+							
+							<div style="text-align: center">
+								<img src="/센터소개/오시는길.PNG">
+								<div class="explain">< 사진제목 ></div><br>
+							</div>
+							<div id="map-canvas" style="width: 100%; height: 400px"></div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</section>
+	<div th:insert="~{fragments/footer::footer}"></div>
+	<script type="text/javascript">
+		function initialize() {
+			var mapLocation = new google.maps.LatLng('36.390858', '126.661208'); // 지도에서 가운데로 위치할 위도와 경도
+			var markLocation = new google.maps.LatLng('36.390858', '126.661208'); // 마커가 위치할 위도와 경도 
+
+			var mapOptions = {
+				center : mapLocation, // 지도에서 가운데로 위치할 위도와 경도(변수)
+				zoom : 17, // 지도 zoom단계
+				mapTypeId : google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(
+					document.getElementById("map-canvas"), // id: map-canvas, body에 있는 div태그의 id와 같아야 함
+					mapOptions);
+
+			var size_x = 60; // 마커로 사용할 이미지의 가로 크기
+			var size_y = 60; // 마커로 사용할 이미지의 세로 크기
+
+			// 마커로 사용할 이미지 주소
+			var image = new google.maps.MarkerImage(
+					'http://www.larva.re.kr/home/img/boximage3.png',
+					new google.maps.Size(size_x, size_y), '', '',
+					new google.maps.Size(size_x, size_y));
+
+			var marker;
+			marker = new google.maps.Marker({
+				position : markLocation, // 마커가 위치할 위도와 경도(변수)
+				map : map,
+				icon : image, // 마커로 사용할 이미지(변수)
+				//             info: '말풍선 안에 들어갈 내용',
+				title : '금빛주야간보호센터' // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
+			});
+
+			var content = "충청남도 보령시 청라면 백현장산길 2"; // 말풍선 안에 들어갈 내용
+
+			// 마커를 클릭했을 때의 이벤트. 말풍선 뿅~
+			var infowindow = new google.maps.InfoWindow({
+				content : content
+			});
+
+			google.maps.event.addListener(marker, "click", function() {
+				infowindow.open(map, marker);
+			});
+
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+	<script type="text/javascript" src="../ex1.js"></script>
 </body>
 
 </html>

@@ -40,17 +40,98 @@
                                 <h2 class="section-h2">포토 갤러리</h2>
                                 <div class="sub-section">
                                         <div class="section-side-layout">
-                                                <div class="sub-title"><i class="fas fa-check"></i> 포토 갤러리</div>
+                                               <div class="sub-title"><a href="/comm/notice">공지사항</a></div>
+                                               <div class="sub-title"><a href="/comm/news">월간소식지</a></div>
+                                               <div class="sub-title active"><a href="/comm/photo">포토갤러리</a></div>
                                         </div>
                                         <div class="section-content-layout">
-                                                <div class="content">
-                                                        <div class="now-page">(page [[${pager.currentPageNum}]]/[[${pager.totalPageNum}]])</div>
+                                                <div class="content" th:object="${content}">
+                                                <div id="print_area">
+                                                        <div class="board-view-head">
+                                                                <div class="board-view-no">#[[*{no}]] | </div>
+                                                                <div class="board-view-title">[[*{title}]]</div>
+                                                                <div class="board-view-date">
+                                                                        <i class="far fa-clock" style="padding:3px; font-size:11px; "></i>[[${#dates.format(content.date,'yyyy.MM.dd HH:mm')}]]
+                                                                </div>
+                                                        </div>
+                                                        <div class="board-view-head-sub">
+                                                        	<div class="board-view-head-sub-name">관리자</div>
+                                                        	<div class="board-view-count">
+                                                        	<i class="far fa-eye" style="padding:3px; font-size:11px; "></i>[[*{count}]]
+                                                        	</div>
+                                                        </div>
+                                                        <div class="board-view-body">
+                                                                <div class="board-content">
+																	<div th:utext=*{content}></div>
+                                                                </div>
+                                                        </div>
+                                                        <script th:inline="javascript">
+                                                        	var bno = [[*{no}]];
+                                                        	function phUpdate() {
+                                                        		window.open('/admin/photo/update?bno='+bno,'_blank','width=810 height=780');
+                                                        	}
+                                                        	function phDelete() {
+                                                        		var YesNo = confirm("정말 삭제하시겠습니까?");
+                                                        		if(YesNo == true){
+                                                        			window.location.href="/admin/photo/delete/"+bno;
+                                                        		}else{
+                                                        			return false;
+                                                        		}
+                                                        		
+                                                        	}
+                                                        </script>
+                                                        <div class="board-view-printTab">
+                                                        <button sec:authorize="hasRole('ROLE_ADMIN')" onclick="phUpdate()">수정</button>
+                                                        <button sec:authorize="hasRole('ROLE_ADMIN')" onclick="phDelete()">삭제</button>
+                                                        <button onclick="location.href='/comm/photo'">목록</button>
+                                                        <button class="print-btn-conetent float-right" onclick="pageprint()"><i class="fas fa-print print-icon"></i></button>
+                                                        </div>
+                                                        <div class="board-view-footer">
+                                                                <div class="comment-form">
+                                                                		<div class="comment-intro"><i class="fas fa-pencil-alt"></i> 댓글 작성</div>
+                                                                        <div class="user-comment">
+                                                                        <form class="comment-area-form" id="reply_form" th:action="@{'/photo/reply'}" method="post">
+                                                                        <input type="hidden" name="bno" th:value="*{no}"/>
+                                                                        <input type="hidden" id="csrf" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                                                        <input type="hidden" id="replyer" name="replyer" th:value="${#authentication.name}"/>
+                                                                                <textarea name="reply" id="reply_text" class="comment-textarea" placeholder="Comments..." rows="3" aria-hidden="true"></textarea>
+                                                                                <button onclick="rp()" type="button" class="comment-submit">등록</button>
+                                                                        </form>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="comment-form" id="comment-list">
+                                                                	<i class="far fa-comment comment-icon-size"> <span class="comment-word"> Comment </span><span class="comment-count">[[${replyCount}]]</span></i>
+                                                                    <div th:each="rp:${reply}">
+																	<div class="comment-view-area display-none">
+																		<div class="comment-head">
+																			<div class="comment-id">[[${rp.replyer}]]</div>
+																			<div class="comment-date">[[${#dates.format(rp.date,'yyyy-MM-dd  HH:mm')}]]</div>
+																			<div class="comment-delete">
+																				<a sec:authorize="hasRole('ROLE_ADMIN')" 
+																				th:href="@{'/photo/reply/delete?rno='+${rp.rno}+'&bno='+${rp.bno}}"><i class="far fa-times-circle cmt-icon-color"></i></a>
+																				<a th:if="${#authentication.name} == ${rp.replyer}"
+																				th:href="@{'/photo/reply/delete?rno='+${rp.rno}+'&bno='+${rp.bno}}"><i class="far fa-times-circle cmt-icon-color"></i></a>
+																			</div>
+																		</div>
+																		<div class="comment-body"> 
+																			<div class="comment-content" th:object=${rp}>
+																			<p th:utext="*{reply}"></p>
+																			</div>
+																		</div>
+																	</div>
+																	</div>
+																	<div class="align-center"><button id="more" class="more-btn">+ 더 보기</button>
+																	</div>
+                                                                </div>
+                                                        </div>
+                                                        <!-- <div class="now-page">(page [[${pager.currentPageNum}]]/[[${pager.totalPageNum}]])</div> -->
                                                         <div class="photo-wrap-grid">
                                                                 <div class="photo-wrap" th:each="p : ${list}">
+                                                                	<a th:href="@{'/comm/photo/view?no=' + ${p.no} + '&page='+${pager.currentPageNum}}">
                                                                 		<div class="photo-img" id="idx"></div>
                                                                         <div class="photo-wrap-title">[[${p.title}]]</div>
                                                                         <div id="photo-wrap-content-idx"></div>
-                                                                        <div class="photo-wrap-date">< [[${#dates.format(p.date,'yyyy-MM-dd')}]] ></div>
+                                                                        <div class="photo-wrap-date">Date [[${#dates.format(p.date,'yyyy.MM.dd')}]] View [[${p.count}]]</div>
                                                                         <script th:inline="javascript">
                                                                         	var str = [[${p.content}]];
                                                                         	var newIdx = [[${p.no}]];
@@ -64,22 +145,23 @@
                                                                         	/* addClass("photo-wrap-content").text(contentDom.firstChild.innerText); */
                                                                         	console.log(contentDom.firstElementChild.innerText);
                                                                         	if(contentDom.getElementsByTagName("img")[0]==null){
-                                                                        		document.getElementById(newIdx).innerHTML='<img src="../main/no-image.gif"/>';
+                                                                        		document.getElementById(newIdx).innerHTML='<img src="/main/no-image.gif"/>';
                                                                         	}else{
                                                                         		document.getElementById(newIdx).innerHTML=
                         														contentDom.getElementsByTagName("img")[0].outerHTML;
                                                                         	}
 																		</script>
+																	</a>
                                                                 </div>
                                                         </div>
+                                                        
                                                         <div class="table-footer">
-                                                                <i class="fas fa-search border">
-                                                                <input type="text" id="searchKeyword" th:value="${photoPageVO.keyword}"class=search placeholder="제목+내용">
-                                                                </i>
-                                                                <button id="searchBtn">검색</button>
-                                                        </div>
-                                                        <div class="pull-right">
-                                                                <button onclick="window.open('/admin/photo','_blank','width=810 height=780')">글쓰기</button>
+                                                                <input type="text" id="searchKeyword" th:value="${photoPageVO.keyword}" class='search' placeholder="제목+내용">
+                                                                <button id="searchBtn"><i class="fas fa-search border"></i></button>
+                                                                <div class="pull-right">
+                                                                <button sec:authorize="hasRole('ROLE_ADMIN')" 
+                                                                class="btn-write" onclick="window.open('/admin/photo','_blank','width=810 height=780')">글쓰기</button>
+                                                        		</div>
                                                         </div>
                                                         <ul class="paging-ul">  
                                                                 <li th:if="${pager.prevPage}">
