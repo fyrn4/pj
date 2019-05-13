@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ErrorPage</title>
+</head>
+<style>
+	.box-area{
+		width: 1100px;
+	    margin: 0 auto;
+	    margin-top: 100px;
+	    padding: 20px;
+	    border-top: 1px solid gray;
+	    border-bottom: 1px solid gray;
+	    text-align: center;
+	}
+	.status-code {
+		font-size: 40px;
+    	color: red;
+    	margin: 15px;
+    	font-weight:600;
+	}
+	.err-sub {
+	 	margin: 12px;
+    	font-size: 18px;
+    	color: #6586bc;
+    	font-weight: 600;
+	}
+	.err-content {
+		color: gray;
+    	font-size: 15px;
+	}
+	@media (max-width: 481px){
+    .box-area{
+        width: 90%;
+        margin: 30px auto;
+    }
+</style>
+<body>
+	<div class="box-area">
+		<p class="status-code">[[${err}]]</p>
+		<img src="/로고/로고아이콘2.png" style="width:110px; opacity:0.8;">
+		<div class="err-sub">
+			[[${sub}]]
+		</div>
+		<div class="err-content">
+			[[${cnt}]]
+		</div>
+	</div>
+</body>
+</html>

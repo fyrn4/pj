@@ -75,7 +75,7 @@
         	function modifyPwd(){
         		var formdata = $('#info-form').serialize();
         		$.ajax({
-        			url:'modifyPwd',
+        			url:'/myInfo/modifyPwd',
         			type:'post',
         			data:formdata,
         			success: function(result){

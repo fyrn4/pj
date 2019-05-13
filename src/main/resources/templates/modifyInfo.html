@@ -83,7 +83,7 @@
         	function modifyInfo(){
         		var formdata = $('#info-form').serialize();
         		$.ajax({
-        			url:'modifyInfo',
+        			url:'/myInfo/modifyInfo',
         			type:'post',
         			data:formdata,
         			success: function(result){

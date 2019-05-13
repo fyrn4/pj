@@ -67,7 +67,7 @@
         	function deleteUser(){
         		var formdata = $('#info-form').serialize();
         		$.ajax({
-        			url:'deleteUser',
+        			url:'/myInfo/deleteUser',
         			type:'post',
         			data:formdata,
         			success: function(result){
@@ -81,7 +81,7 @@
         	function logout(){
         		var formdata = $('#info-form').serialize();
         		$.ajax({
-					url:'logout',
+					url:'/logout',
 					type:'post',
 					data:formdata,
 					success:function(){

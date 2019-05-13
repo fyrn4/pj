@@ -40,18 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.invalidateHttpSession(true)
 		.deleteCookies("JSESSIONID")
 		.logoutSuccessUrl("/");
-		
+		// .usernameParameter("username").passwordParameter("password");
 		http.authorizeRequests()
 		.antMatchers("/")
 		.permitAll();
 		
 		http.authorizeRequests()
-		.antMatchers("/admin/*")
-		.hasRole("ADMIN");
-		
-		http.authorizeRequests()
-		.antMatchers("/myInfo/*")
-		.hasRole("USER");
+		.antMatchers("/admin","/admin/*").hasRole("ADMIN")
+		.antMatchers("/myInfo","/myInfo/*").authenticated();
 		
 		http.userDetailsService(ms);
 	}

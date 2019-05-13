@@ -16,6 +16,16 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
+	<div class="popup-area"><img src="/main/사이트공지사항.jpg">
+		<div style="background:#333;padding:6px;color:#fff;font-size:11px;letter-spacing:-1px;position:relative;">
+			<label style="color: white; font-size:12px; cursor:pointer;" :="">
+				<input type="checkbox" id="popup-check" name="popup_1week_24h" style="margin: 0px;height:12px;"> 오늘 하루 이 창을 열지 않음</label>
+				<a href="javascript:closePopup();" class="popup-close" style="position:absolute; top:8px; right:8px; color:#AFAFAF;">닫기</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		
+	</script>
 	<th:block th:insert="~{fragments/header::header}"></th:block>
 	<div id="page-content">
 		<section id="layer-carousel">
@@ -190,9 +200,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				</div>
 			</div>
 		</section>
-		<script type="text/javascript" src="photoslide.js"></script>
+		</div>
 		<div th:insert="~{fragments/footer::footer}"></div>
+		<script type="text/javascript" src="photoslide.js"></script>
 		<script type="text/javascript" src="ex1.js"></script>
+		<script type="text/javascript" src="popup.js"></script>
 </body>
 
 </html>

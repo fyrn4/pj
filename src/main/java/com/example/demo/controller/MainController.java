@@ -1,38 +1,31 @@
 package com.example.demo.controller;
 
-import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.model.Member;
-import com.example.demo.model.News;
 import com.example.demo.model.PageMaker;
 import com.example.demo.model.PageVO;
 import com.example.demo.model.PhotoPageVO;
 import com.example.demo.model.Schedule;
-import com.example.demo.model.ScheduleReply;
-import com.example.demo.model.SignValidation;
-import com.example.demo.repository.ScheduleRepository;
 import com.example.demo.service.BoardService;
 import com.example.demo.service.EmailService;
 import com.example.demo.service.MemberService;
@@ -322,7 +315,7 @@ public class MainController {
 		}
 		return "myInfo";
 	}
-	@GetMapping("modifyInfo")
+	@GetMapping("myInfo/modifyInfo")
 	public String modifyInfo(@AuthenticationPrincipal Principal principal, Model model) {
 		if(principal != null) {
 			String userName = principal.getName();
@@ -332,7 +325,7 @@ public class MainController {
 		}
 		return "modifyInfo";
 	}
-	@PostMapping("modifyInfo")
+	@PostMapping("myInfo/modifyInfo")
 	public @ResponseBody String modifyInfoPost(@RequestParam("name") String name,@RequestParam("phone") String phone,
 			@RequestParam("email") String email, @AuthenticationPrincipal Principal principal ) {
 		
@@ -356,7 +349,7 @@ public class MainController {
 		
 		return "회원정보가 수정되었습니다.";
 	}
-	@GetMapping("modifyPwd")
+	@GetMapping("myInfo/modifyPwd")
 	public String modifyPwd(@AuthenticationPrincipal Principal principal, Model model) {
 		if(principal != null) {
 			String userName = principal.getName();
@@ -366,7 +359,7 @@ public class MainController {
 		}
 		return "modifypwd";
 	}
-	@PostMapping("modifyPwd")
+	@PostMapping("myInfo/modifyPwd")
 	public @ResponseBody String modifyPwdPost(@AuthenticationPrincipal Principal principal, Model model,
 			@RequestParam("pwd") String pwd, @RequestParam("newPwd") String newPwd, @RequestParam("newPwd2") String newPwd2) {
 		if(principal==null) {
@@ -383,7 +376,7 @@ public class MainController {
 		
 		return "비밀번호가 변경되었습니다.";
 	}
-	@GetMapping("deleteUser")
+	@GetMapping("myInfo/deleteUser")
 	public String deleteUser(@AuthenticationPrincipal Principal principal, Model model) {
 		if(principal != null) {
 			String userName = principal.getName();
@@ -393,7 +386,7 @@ public class MainController {
 		}
 		return "deleteUser"; 
 	}
-	@PostMapping("deleteUser")
+	@PostMapping("myInfo/deleteUser")
 	public @ResponseBody String deleteUserPost(@AuthenticationPrincipal Principal principal, Model model, @RequestParam("pwd")String pwd) {
 		if(principal==null) {
 			return "로그인이 필요합니다.";
@@ -403,5 +396,32 @@ public class MainController {
 		}
 		ms.deleteUser(principal.getName());
 		return "계정이 탈퇴되었습니다."; 
+	}
+	
+	@RequestMapping("err/{path}")
+	public String errPage(@PathVariable("path")int path, HttpServletRequest req, HttpServletResponse rep, Model model) {
+		switch(path) {
+			case 400 : model.addAttribute("err","400 BadRequest"); 
+					   model.addAttribute("sub","요청의 구문을 인식하지 못했습니다!");
+					   model.addAttribute("cnt","올바른 경로로 요청을 시도해주시길 바랍니다. 문제가 계속되면 문의해주시기 바랍니다.");
+					   return "err/err";
+					   
+			case 403 : model.addAttribute("err","403 Forbidden"); 
+					   model.addAttribute("sub","사용자의 권한이 제한되어있습니다.");
+					   model.addAttribute("cnt","해당 페이지를 접근할 수 있는 권한이 없습니다.");
+					   return "err/err";
+					   
+			case 404 : model.addAttribute("err","404 NotFound");
+					   model.addAttribute("sub","죄송합니다, 현재 찾을 수 없는 페이지를 요청하셨습니다.");
+					   model.addAttribute("cnt","존재하지 않는 주소를 입력하셨거나 요청하신 페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.");
+					   return "err/err";
+					   
+			case 500 : model.addAttribute("err","500 Server Error");
+					   model.addAttribute("sub","현재 서버가 점검중이거나 내부 서버에 문제가 있습니다.");
+					   model.addAttribute("cnt","점검이 끝난 뒤 다시접속해주시거나, 관리자에게 문의해주시기 바랍니다.");
+					   return "err/err";
+					   
+			default : model.addAttribute("err","알수없는 에러"); return "err/err";
+		}
 	}
 }

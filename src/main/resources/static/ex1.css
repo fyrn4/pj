@@ -1775,3 +1775,14 @@ table {
 .paddingTop {
 	padding-top:6.5px;
 }
+.popup-area {
+	display:none;
+	position: fixed;
+    left: 402;
+    z-index: 999;
+    width: 400px;
+    height: 350px;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(153, 153, 153);
+}
